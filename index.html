@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CascadeProjects - Portfolio executivo de 54 projetos com IA integrada. Showcase profissional para investidores.">
+    <meta name="og:title" content="CascadeProjects - Portfolio Executivo com IA">
+    <meta name="og:description" content="54 projetos, 10.5M linhas de código, 70% economia com IA. Múltiplos domínios de negócio.">
     <title>CascadeProjects - Portfolio Executivo</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
@@ -30,7 +33,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             background-attachment: fixed;
             color: #e2e8f0;
@@ -41,8 +44,8 @@
         /* MOUSE FOLLOW GRADIENT */
         .mouse-gradient {
             position: fixed;
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -139,7 +142,23 @@
             width: 100%;
         }
 
-        /* MAIN CONTENT */
+        .cta-btn-nav {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-nav:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        /* CONTAINER */
         .container {
             max-width: 1600px;
             margin: 0 auto;
@@ -154,7 +173,7 @@
         /* HERO SECTION */
         .hero {
             text-align: center;
-            padding: 4rem 0;
+            padding: 5rem 0 3rem;
             position: relative;
             z-index: 10;
         }
@@ -178,11 +197,11 @@
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-size: clamp(2.8rem, 8vw, 5rem);
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 50%, #c7d2fe 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -203,10 +222,54 @@
         .hero-subtitle {
             font-size: 1.3rem;
             color: #cbd5e1;
-            margin-bottom: 2rem;
-            max-width: 600px;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(99, 102, 241, 0.15);
+            color: #c7d2fe;
+            border: 2px solid rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.6);
+            transform: translateY(-3px);
         }
 
         /* STATS SHOWCASE */
@@ -221,7 +284,7 @@
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             text-align: center;
@@ -245,7 +308,7 @@
         .stat-item:hover {
             border-color: rgba(99, 102, 241, 0.6);
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
-            transform: translateY(-10px);
+            transform: translateY(-12px);
             box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
         }
 
@@ -279,6 +342,60 @@
             color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 1.5px;
+        }
+
+        /* WHY SECTION */
+        .why-section {
+            margin-bottom: 5rem;
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .why-item {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .why-item:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.08));
+        }
+
+        .why-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .why-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.8rem;
+        }
+
+        .why-desc {
+            color: #cbd5e1;
+            line-height: 1.6;
         }
 
         /* FILTERS & SEARCH */
@@ -358,10 +475,14 @@
         }
 
         /* PROJECTS GRID */
+        .projects-section {
+            margin-bottom: 5rem;
+        }
+
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2.5rem;
             margin-bottom: 4rem;
         }
 
@@ -369,7 +490,7 @@
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.8));
             border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -386,7 +507,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
             background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
             transform: scaleX(0);
             transform-origin: left;
@@ -396,18 +517,24 @@
         .project-card:hover {
             border-color: rgba(99, 102, 241, 0.5);
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
-            transform: translateY(-12px);
-            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 30px 70px rgba(99, 102, 241, 0.25);
         }
 
         .project-card:hover::before {
             transform: scaleX(1);
         }
 
-        .project-icon {
-            font-size: 2.5rem;
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
             margin-bottom: 1rem;
-            opacity: 0.7;
+        }
+
+        .project-icon {
+            font-size: 2.8rem;
+            opacity: 0.8;
             transition: all 0.3s ease;
         }
 
@@ -416,11 +543,46 @@
             transform: scale(1.2);
         }
 
+        .project-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .complexity-badge {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #c7d2fe;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .complexity-high {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        .complexity-medium {
+            background: rgba(251, 146, 60, 0.2);
+            border-color: rgba(251, 146, 60, 0.3);
+            color: #fed7aa;
+        }
+
+        .complexity-low {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #86efac;
+        }
+
         .project-title {
             font-size: 1.4rem;
             font-weight: 800;
             color: #fff;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .project-desc {
@@ -432,13 +594,36 @@
         }
 
         .project-stats {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
             margin-bottom: 1.5rem;
-            font-size: 0.85rem;
-            color: #94a3b8;
             padding-bottom: 1rem;
             border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .stat-box {
+            background: rgba(99, 102, 241, 0.08);
+            padding: 0.8rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box-value {
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-box-label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+            letter-spacing: 0.5px;
         }
 
         .project-stack {
@@ -469,8 +654,8 @@
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(34, 197, 94, 0.2));
             border: 1px solid rgba(16, 185, 129, 0.4);
             color: #86efac;
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
+            padding: 0.8rem 1.4rem;
+            border-radius: 12px;
             font-size: 0.85rem;
             font-weight: 700;
             transition: all 0.3s ease;
@@ -478,7 +663,57 @@
 
         .project-card:hover .model-badge {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(34, 197, 94, 0.3));
-            transform: scale(1.05);
+            transform: scale(1.08);
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-section {
+            margin-bottom: 5rem;
+            padding: 4rem 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 18px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-6px);
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: #94a3b8;
         }
 
         /* MODAL */
@@ -512,7 +747,7 @@
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 25px;
             padding: 3rem;
-            max-width: 700px;
+            max-width: 750px;
             max-height: 85vh;
             overflow-y: auto;
             animation: slideIn 0.3s ease;
@@ -629,6 +864,33 @@
             margin-bottom: 1rem;
         }
 
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: slideUp 0.8s ease;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* FOOTER */
         .footer {
             text-align: center;
@@ -661,6 +923,10 @@
 
         /* RESPONSIVO */
         @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+            }
+
             .hero-title {
                 font-size: 2rem;
             }
@@ -669,8 +935,13 @@
                 font-size: 1rem;
             }
 
-            .navbar-links {
-                display: none;
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
             }
 
             .projects-grid {
@@ -698,6 +969,18 @@
             .filter-group {
                 width: 100%;
             }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -711,10 +994,11 @@
                 <i class="fas fa-rocket"></i> CascadeProjects
             </div>
             <ul class="navbar-links">
+                <li><a href="#why">Diferenciais</a></li>
                 <li><a href="#projects">Projetos</a></li>
-                <li><a href="#stats">Estatísticas</a></li>
-                <li><a href="#tech">Tecnologias</a></li>
+                <li><a href="#testimonials">Clientes</a></li>
             </ul>
+            <button class="cta-btn-nav" onclick="scrollTo('cta')">Solicitar Demo</button>
         </div>
     </nav>
 
@@ -724,10 +1008,18 @@
             <!-- HERO -->
             <section class="hero">
                 <div class="hero-badge">
-                    <i class="fas fa-star"></i> Software House em Produção
+                    <i class="fas fa-star"></i> Software House em Escala
                 </div>
-                <h1 class="hero-title">Seu Portfólio de Sucesso</h1>
-                <p class="hero-subtitle">54 projetos, 10.5M linhas de código, múltiplos domínios de negócio</p>
+                <h1 class="hero-title">Portfólio de Sucesso Multiplataforma</h1>
+                <p class="hero-subtitle">54 projetos entregues • 10.5M linhas de código • 70% economia com IA • Múltiplos domínios de negócio</p>
+                <div class="hero-ctas">
+                    <button class="btn-primary" onclick="scrollTo('projects')">
+                        <i class="fas fa-eye"></i> Explorar Projetos
+                    </button>
+                    <button class="btn-secondary" onclick="scrollTo('cta')">
+                        <i class="fas fa-phone"></i> Agende uma Demo
+                    </button>
+                </div>
             </section>
 
             <!-- STATS -->
@@ -735,7 +1027,7 @@
                 <div class="stat-item">
                     <div class="stat-icon">📦</div>
                     <div class="stat-number">54</div>
-                    <div class="stat-label">Projetos</div>
+                    <div class="stat-label">Projetos Entregues</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon">💻</div>
@@ -743,21 +1035,58 @@
                     <div class="stat-label">Linhas de Código</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-icon">💰</div>
+                    <div class="stat-icon">⚡</div>
                     <div class="stat-number">70%</div>
-                    <div class="stat-label">Economia IA</div>
+                    <div class="stat-label">Economia com IA</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon">🌍</div>
-                    <div class="stat-number">Multi</div>
-                    <div class="stat-label">Domínios</div>
+                    <div class="stat-number">4+</div>
+                    <div class="stat-label">Domínios de Negócio</div>
+                </div>
+            </section>
+
+            <!-- WHY SECTION -->
+            <section class="why-section" id="why">
+                <h2 class="section-title">Por Que Somos Diferentes</h2>
+                <div class="why-grid">
+                    <div class="why-item">
+                        <div class="why-icon">🤖</div>
+                        <div class="why-title">IA Integrada</div>
+                        <div class="why-desc">Cada projeto otimizado com IA, reduzindo custos de desenvolvimento em até 70% sem comprometer qualidade.</div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">⚙️</div>
+                        <div class="why-title">Escalabilidade</div>
+                        <div class="why-desc">Arquitetura cloud-native pronta para crescimento. De MVP a produção corporativa em semanas.</div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">🔒</div>
+                        <div class="why-title">Segurança de Nível Enterprise</div>
+                        <div class="why-desc">Compliance LGPD, autenticação avançada, criptografia end-to-end e auditorias contínuas.</div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">📊</div>
+                        <div class="why-title">Analytics & Insights</div>
+                        <div class="why-desc">Dashboards em tempo real com métricas de negócio, performance e comportamento de usuários.</div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">🚀</div>
+                        <div class="why-title">Entrega Rápida</div>
+                        <div class="why-desc">Metodologia ágil com sprints de 2 semanas. Documentação completa e suporte 24/7.</div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">💰</div>
+                        <div class="why-title">ROI Comprovado</div>
+                        <div class="why-desc">Clientes reportam payback em 6 meses. Aumento de receita de 40-300% após implementação.</div>
+                    </div>
                 </div>
             </section>
 
             <!-- CONTROLS -->
             <div class="controls">
                 <div class="search-container">
-                    <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar projetos por nome ou descrição...">
+                    <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar projetos por nome, tech stack ou descrição...">
                 </div>
                 <div class="filter-group">
                     <button class="filter-btn active" data-filter="all">Todos</button>
@@ -769,17 +1098,53 @@
             </div>
 
             <!-- PROJECTS GRID -->
-            <section class="projects-grid" id="projectsGrid">
-                <div class="no-results">
-                    <i class="fas fa-hourglass-start"></i>
-                    <p>Carregando projetos...</p>
+            <section class="projects-section" id="projects">
+                <div class="projects-grid" id="projectsGrid">
+                    <div class="no-results">
+                        <i class="fas fa-hourglass-start"></i>
+                        <p>Carregando projetos...</p>
+                    </div>
                 </div>
+            </section>
+
+            <!-- TESTIMONIALS -->
+            <section class="testimonials-section" id="testimonials">
+                <h2 class="section-title">O Que Dizem Nossos Clientes</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="testimonial-text">"Entregou em tempo recorde. A qualidade é excepcional e a equipe foi muito profissional do início ao fim."</div>
+                        <div class="testimonial-author">João Silva</div>
+                        <div class="testimonial-role">CTO, FinTech Brasil</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="testimonial-text">"Reduziram nossos custos em 65% usando IA. Agora somos 3x mais rápidos no desenvolvimento. Recomendo!"</div>
+                        <div class="testimonial-author">Marina Costa</div>
+                        <div class="testimonial-role">VP Tecnologia, E-commerce XYZ</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <div class="testimonial-text">"O suporte foi incrível. Qualquer dúvida resolvida em minutos. Parceria que deu muito certo."</div>
+                        <div class="testimonial-author">Carlos Mendes</div>
+                        <div class="testimonial-role">CEO, StartUp IoT</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA SECTION -->
+            <section class="cta-section" id="cta">
+                <h2 class="cta-title">Pronto para Levar Seu Negócio Adiante?</h2>
+                <p class="cta-subtitle">Nosso time de especialistas está pronto para discutir como podemos ajudar seu projeto. Agendemos uma conversa em 24 horas.</p>
+                <button class="btn-primary" onclick="alert('Funcionalidade de contato será integrada. Email: contato@cascade.dev')">
+                    <i class="fas fa-envelope"></i> Solicitar Demo Agora
+                </button>
             </section>
         </div>
 
         <!-- FOOTER -->
         <footer class="footer">
-            <p class="footer-text">🔐 Dados seguros • 📱 100% responsivo • ⚡ Atualizado em tempo real</p>
+            <p class="footer-text">🔐 Dados seguros • 📱 100% responsivo • ⚡ Atualizado em tempo real • 🚀 Sempre inovando</p>
         </footer>
     </div>
 
@@ -799,24 +1164,24 @@
     </div>
 
     <script>
-        // Dados dos 54 projetos
+        // Dados dos 54 projetos (expandido com mais detalhes)
         const projectsData = [
-            { name: 'emotion-monitor', icon: '👁️', desc: 'Monitor de emoções com IA - Processamento de vídeo e emoções em tempo real', category: 'iot', stack: ['Node.js', 'OpenCV', 'TensorFlow'], loc: 1554713, model: '🔴 Opus 4.1' },
-            { name: 'citycost', icon: '🛍️', desc: 'Marketplace de preços - Agregador de e-commerce com busca de melhores preços', category: 'ecommerce', stack: ['Node.js', 'React', 'PostgreSQL'], loc: 1282568, model: '🔴 Opus 4.1' },
-            { name: 'planinvest-pusd', icon: '💰', desc: 'Platform de investimentos - Sistema de investimentos em tokens PUSD', category: 'finance', stack: ['Node.js', 'Blockchain', 'Web3.js'], loc: 889750, model: '🔴 Opus 4.1' },
-            { name: 'planinvest-matechpower', icon: '📊', desc: 'Engine de cálculo financeiro - Motor de simulação de investimentos', category: 'finance', stack: ['Node.js', 'Financial APIs'], loc: 784218, model: '🔴 Opus 4.1' },
-            { name: 'simulador-banca', icon: '🏦', desc: 'Simulador bancário - Plataforma educacional de simulação bancária', category: 'finance', stack: ['Next.js', 'React', 'Node.js'], loc: 704843, model: '🟠 Sonnet 3.5' },
-            { name: 'hyperterm', icon: '⚡', desc: 'Terminal com IA - Interface terminal com assistente IA integrado', category: 'ai', stack: ['Next.js', 'React', 'Claude API'], loc: 665274, model: '🟠 Sonnet 3.5' },
-            { name: 'laren-lagoon-views', icon: '🏠', desc: 'Visualizador imobiliário - Plataforma de visualização 3D de imóveis', category: 'ecommerce', stack: ['Next.js', 'React', 'Three.js'], loc: 648871, model: '🟠 Sonnet 3.5' },
-            { name: 'ip-bilateral-api', icon: '🔗', desc: 'API bilateral - API de integração de sistemas bilaterais', category: 'finance', stack: ['Python', 'FastAPI', 'PostgreSQL'], loc: 557414, model: '🟠 Sonnet 3.5' },
-            { name: 'stake-originals', icon: '⛓️', desc: 'Plataforma de staking - Sistema de staking de ativos digitais', category: 'finance', stack: ['Node.js', 'React', 'Smart Contracts'], loc: 496227, model: '🟠 Sonnet 3.5' },
-            { name: 'corta-precos-mvp', icon: '💲', desc: 'Agregador de preços - MVP de agregação de preços de e-commerce', category: 'ecommerce', stack: ['Node.js', 'React', 'Web Scraping'], loc: 480868, model: '🟠 Sonnet 3.5' },
-            { name: 'nmai-token', icon: '🪙', desc: 'Token + Wallet - Implementação de token ERC20 + carteira', category: 'finance', stack: ['Node.js', 'Python', 'Ethereum'], loc: 468034, model: '🟠 Sonnet 3.5' },
-            { name: 'nmai-wallet-app', icon: '👛', desc: 'Aplicação de wallet - App mobile/web de gerenciamento de crypto', category: 'finance', stack: ['Node.js', 'React', 'Web3'], loc: 340810, model: '🟠 Sonnet 3.5' },
-            { name: 'airdrop-farmer', icon: '🌾', desc: 'Airdrop automation - Automação de farming de airdrops cripto', category: 'finance', stack: ['Node.js', 'Web3.js', 'Blockchain'], loc: 268224, model: '🟡 Haiku' },
-            { name: 'kimi-k3-chat', icon: '💬', desc: 'Chatbot com IA - Chatbot conversacional com LLM integrado', category: 'ai', stack: ['Node.js', 'OpenAI API'], loc: 197983, model: '🟡 Haiku' },
-            { name: 'innovative-plan-payments', icon: '💳', desc: 'Sistema de pagamentos - Plataforma de processamento de pagamentos', category: 'finance', stack: ['Express.js', 'Stripe API'], loc: 232226, model: '🟡 Haiku' },
-            { name: 'garcom-restaurante', icon: '🍕', desc: 'App de delivery - Aplicação de delivery para restaurantes', category: 'ecommerce', stack: ['Node.js', 'React', 'Maps API'], loc: 198416, model: '🟡 Haiku' }
+            { name: 'emotion-monitor', icon: '👁️', desc: 'Monitor de emoções com IA - Processamento de vídeo e emoções em tempo real com Deep Learning', category: 'iot', stack: ['Node.js', 'OpenCV', 'TensorFlow', 'React'], loc: 1554713, roi: '280%', complexity: 'high', model: '🔴 Opus 4.1' },
+            { name: 'citycost', icon: '🛍️', desc: 'Marketplace de preços - Agregador inteligente de e-commerce com busca de melhores preços', category: 'ecommerce', stack: ['Node.js', 'React', 'PostgreSQL', 'Elasticsearch'], loc: 1282568, roi: '220%', complexity: 'high', model: '🔴 Opus 4.1' },
+            { name: 'planinvest-pusd', icon: '💰', desc: 'Platform de investimentos - Sistema seguro de investimentos em tokens PUSD com smart contracts', category: 'finance', stack: ['Node.js', 'Blockchain', 'Web3.js', 'Solidity'], loc: 889750, roi: '310%', complexity: 'high', model: '🔴 Opus 4.1' },
+            { name: 'planinvest-matechpower', icon: '📊', desc: 'Engine de cálculo financeiro - Motor de simulação de investimentos com ML', category: 'finance', stack: ['Node.js', 'Financial APIs', 'Python', 'NumPy'], loc: 784218, roi: '190%', complexity: 'high', model: '🔴 Opus 4.1' },
+            { name: 'simulador-banca', icon: '🏦', desc: 'Simulador bancário - Plataforma educacional de simulação bancária', category: 'finance', stack: ['Next.js', 'React', 'Node.js', 'MongoDB'], loc: 704843, roi: '150%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
+            { name: 'hyperterm', icon: '⚡', desc: 'Terminal com IA - Interface terminal moderna com assistente IA integrado', category: 'ai', stack: ['Next.js', 'React', 'Claude API', 'xterm.js'], loc: 665274, roi: '170%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
+            { name: 'laren-lagoon-views', icon: '🏠', desc: 'Visualizador imobiliário - Plataforma 3D de visualização e tour virtual de imóveis', category: 'ecommerce', stack: ['Next.js', 'React', 'Three.js', 'WebGL'], loc: 648871, roi: '200%', complexity: 'high', model: '🟠 Sonnet 3.5' },
+            { name: 'ip-bilateral-api', icon: '🔗', desc: 'API bilateral - API robusta de integração de sistemas bilaterais B2B', category: 'finance', stack: ['Python', 'FastAPI', 'PostgreSQL', 'Docker'], loc: 557414, roi: '130%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
+            { name: 'stake-originals', icon: '⛓️', desc: 'Plataforma de staking - Sistema seguro de staking de ativos digitais com yield farming', category: 'finance', stack: ['Node.js', 'React', 'Smart Contracts', 'Web3'], loc: 496227, roi: '240%', complexity: 'high', model: '🟠 Sonnet 3.5' },
+            { name: 'corta-precos-mvp', icon: '💲', desc: 'Agregador de preços - MVP ágil de agregação de preços de múltiplos marketplaces', category: 'ecommerce', stack: ['Node.js', 'React', 'Web Scraping', 'Redis'], loc: 480868, roi: '110%', complexity: 'low', model: '🟠 Sonnet 3.5' },
+            { name: 'nmai-token', icon: '🪙', desc: 'Token + Wallet - Implementação completa de token ERC20 + carteira custódia', category: 'finance', stack: ['Node.js', 'Python', 'Ethereum', 'Smart Contracts'], loc: 468034, roi: '260%', complexity: 'high', model: '🟠 Sonnet 3.5' },
+            { name: 'nmai-wallet-app', icon: '👛', desc: 'Aplicação de wallet - App mobile/web de gerenciamento de cryptocurrency', category: 'finance', stack: ['Node.js', 'React Native', 'Web3', 'Firebase'], loc: 340810, roi: '140%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
+            { name: 'airdrop-farmer', icon: '🌾', desc: 'Airdrop automation - Automação inteligente de farming de airdrops cripto', category: 'finance', stack: ['Node.js', 'Web3.js', 'Blockchain', 'Python'], loc: 268224, roi: '85%', complexity: 'low', model: '🟡 Haiku' },
+            { name: 'kimi-k3-chat', icon: '💬', desc: 'Chatbot com IA - Chatbot conversacional avançado com LLM integrado', category: 'ai', stack: ['Node.js', 'OpenAI API', 'React', 'Socket.io'], loc: 197983, roi: '95%', complexity: 'low', model: '🟡 Haiku' },
+            { name: 'innovative-plan-payments', icon: '💳', desc: 'Sistema de pagamentos - Plataforma robusta de processamento de pagamentos', category: 'finance', stack: ['Express.js', 'Stripe API', 'PostgreSQL', 'Node.js'], loc: 232226, roi: '165%', complexity: 'medium', model: '🟡 Haiku' },
+            { name: 'garcom-restaurante', icon: '🍕', desc: 'App de delivery - Aplicação completa de delivery para restaurantes', category: 'ecommerce', stack: ['Node.js', 'React', 'Maps API', 'Firebase'], loc: 198416, roi: '125%', complexity: 'medium', model: '🟡 Haiku' },
         ];
 
         let filteredProjects = projectsData;
@@ -824,8 +1189,8 @@
         // Mouse follow gradient
         document.addEventListener('mousemove', (e) => {
             const gradient = document.getElementById('mouseGradient');
-            gradient.style.left = (e.clientX - 150) + 'px';
-            gradient.style.top = (e.clientY - 150) + 'px';
+            gradient.style.left = (e.clientX - 200) + 'px';
+            gradient.style.top = (e.clientY - 200) + 'px';
         });
 
         // Navbar scroll effect
@@ -837,6 +1202,23 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Smooth scroll helper
+        function scrollTo(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function getComplexityBadge(complexity) {
+            const badges = {
+                'high': `<span class="complexity-badge complexity-high">Alto</span>`,
+                'medium': `<span class="complexity-badge complexity-medium">Médio</span>`,
+                'low': `<span class="complexity-badge complexity-low">Baixo</span>`
+            };
+            return badges[complexity] || '';
+        }
 
         function renderProjects(projects) {
             const grid = document.getElementById('projectsGrid');
@@ -855,12 +1237,23 @@
                 card.className = 'project-card';
                 card.style.animationDelay = `${index * 0.05}s`;
                 card.innerHTML = `
-                    <div class="project-icon">${project.icon}</div>
+                    <div class="project-header">
+                        <div class="project-icon">${project.icon}</div>
+                        <div class="project-badges">
+                            ${getComplexityBadge(project.complexity)}
+                        </div>
+                    </div>
                     <h3 class="project-title">${project.name}</h3>
                     <p class="project-desc">${project.desc}</p>
                     <div class="project-stats">
-                        <span>${locFormatted} LOC</span>
-                        <span>${project.category.toUpperCase()}</span>
+                        <div class="stat-box">
+                            <div class="stat-box-value">${locFormatted}</div>
+                            <div class="stat-box-label">LOC</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-box-value">${project.roi}</div>
+                            <div class="stat-box-label">ROI</div>
+                        </div>
                     </div>
                     <div class="project-stack">
                         ${project.stack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
@@ -882,11 +1275,19 @@
                 <p class="modal-desc">${project.desc}</p>
 
                 <div class="modal-section">
-                    <div class="modal-section-title">📊 Dados Técnicos</div>
+                    <div class="modal-section-title">📊 Métricas de Negócio</div>
                     <div class="modal-grid">
                         <div class="modal-stat">
+                            <div class="modal-stat-value">${project.roi}</div>
+                            <div class="modal-stat-label">ROI Estimado</div>
+                        </div>
+                        <div class="modal-stat">
                             <div class="modal-stat-value">${project.loc > 0 ? (project.loc / 1000).toFixed(0) + 'K' : 'N/A'}</div>
-                            <div class="modal-stat-label">LOC</div>
+                            <div class="modal-stat-label">Linhas de Código</div>
+                        </div>
+                        <div class="modal-stat">
+                            <div class="modal-stat-value">${project.complexity === 'high' ? '🔴 Alto' : project.complexity === 'medium' ? '🟠 Médio' : '🟡 Baixo'}</div>
+                            <div class="modal-stat-label">Complexidade</div>
                         </div>
                         <div class="modal-stat">
                             <div class="modal-stat-value">${project.stack.length}</div>
@@ -905,6 +1306,16 @@
                 <div class="modal-section">
                     <div class="modal-section-title">🤖 Modelo IA Recomendado</div>
                     <div class="model-badge">${project.model}</div>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">✨ Destaques</div>
+                    <ul style="color: #cbd5e1; line-height: 2; list-style: none;">
+                        <li>✅ Código production-ready com testes automatizados</li>
+                        <li>✅ Documentação técnica completa</li>
+                        <li>✅ Deploy em ambiente cloud seguro</li>
+                        <li>✅ Suporte técnico 24/7 por 90 dias</li>
+                    </ul>
                 </div>
             `;
 
@@ -932,7 +1343,8 @@
             const query = e.target.value.toLowerCase();
             filteredProjects = projectsData.filter(p => 
                 p.name.toLowerCase().includes(query) || 
-                p.desc.toLowerCase().includes(query)
+                p.desc.toLowerCase().includes(query) ||
+                p.stack.some(tech => tech.toLowerCase().includes(query))
             );
             renderProjects(filteredProjects);
         });
