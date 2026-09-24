@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CascadeProjects - Portfolio executivo de 54 projetos com IA integrada. Showcase profissional para investidores.">
-    <meta name="og:title" content="CascadeProjects - Portfolio Executivo com IA">
-    <meta name="og:description" content="54 projetos, 10.5M linhas de código, 70% economia com IA. Múltiplos domínios de negócio.">
-    <title>CascadeProjects - Portfolio Executivo</title>
+    <meta name="description" content="CascadeProjects - Dashboard Executivo de Operações Globais">
+    <title>CascadeProjects - Dashboard Executivo</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <style>
         * {
             margin: 0;
@@ -16,16 +15,14 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
-            --accent: #06b6d4;
-            --success: #10b981;
-            --danger: #ef4444;
-            --dark: #0f172a;
-            --darker: #020617;
-            --light: #f8fafc;
-            --card-bg: rgba(30, 41, 59, 0.4);
+            --primary: #00ff88;
+            --primary-dark: #00cc66;
+            --secondary: #00d9ff;
+            --accent: #ff00ff;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --card-bg: rgba(15, 23, 50, 0.6);
+            --border: rgba(0, 255, 136, 0.2);
         }
 
         html {
@@ -33,30 +30,63 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            font-family: 'Courier New', 'IBM Plex Mono', monospace;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
             background-attachment: fixed;
             color: #e2e8f0;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* MOUSE FOLLOW GRADIENT */
-        .mouse-gradient {
+        /* ANIMATED GRID BG */
+        body::before {
+            content: '';
             position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 136, 0.05) 25%, rgba(0, 255, 136, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 136, 0.05) 75%, rgba(0, 255, 136, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 136, 0.05) 25%, rgba(0, 255, 136, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 136, 0.05) 75%, rgba(0, 255, 136, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
             pointer-events: none;
-            display: none;
+            z-index: 1;
+            animation: gridScroll 20s linear infinite;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* FLOATING PARTICLES */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
             z-index: 1;
         }
 
-        @media (min-width: 1024px) {
-            .mouse-gradient {
-                display: block;
-            }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
         /* NAVBAR */
@@ -65,18 +95,11 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(10, 14, 39, 0.95);
+            border-bottom: 2px solid var(--border);
             z-index: 100;
-            padding: 1rem 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background: rgba(15, 23, 42, 0.95);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 1.2rem 2rem;
+            backdrop-filter: blur(10px);
         }
 
         .navbar-container {
@@ -89,73 +112,45 @@
 
         .navbar-brand {
             font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 900;
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .navbar-brand:hover {
-            transform: scale(1.05);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .navbar-brand i {
             font-size: 2rem;
+            animation: pulse-glow 2s ease-in-out infinite;
         }
 
-        .navbar-links {
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 10px var(--primary); }
+            50% { text-shadow: 0 0 20px var(--primary); }
+        }
+
+        .nav-status {
             display: flex;
             gap: 2rem;
-            list-style: none;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--secondary);
         }
 
-        .navbar-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: blink 1s ease-in-out infinite;
+            box-shadow: 0 0 5px var(--primary);
         }
 
-        .navbar-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            transition: width 0.3s ease;
-        }
-
-        .navbar-links a:hover {
-            color: #fff;
-        }
-
-        .navbar-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-btn-nav {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: #fff;
-            padding: 0.8rem 1.8rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cta-btn-nav:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         /* CONTAINER */
@@ -163,6 +158,8 @@
             max-width: 1600px;
             margin: 0 auto;
             padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
         }
 
         .main-content {
@@ -170,123 +167,321 @@
             min-height: 100vh;
         }
 
-        /* HERO SECTION */
+        /* HERO DASHBOARD */
         .hero {
             text-align: center;
-            padding: 5rem 0 3rem;
+            padding: 3rem 0 2rem;
             position: relative;
-            z-index: 10;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-            border: 1px solid rgba(99, 102, 241, 0.4);
-            color: #c7d2fe;
-            padding: 0.7rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
         }
 
         .hero-title {
-            font-size: clamp(2.8rem, 8vw, 5rem);
+            font-size: clamp(2rem, 6vw, 3.5rem);
             font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #fff 0%, #cbd5e1 50%, #c7d2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: slideDown 0.8s ease;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            animation: glow-text 3s ease-in-out infinite;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes glow-text {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(0, 255, 136, 0.8); }
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
-            color: #cbd5e1;
-            margin-bottom: 2.5rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
         }
 
-        .hero-ctas {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 4rem;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 1.2rem 2.5rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(99, 102, 241, 0.15);
-            color: #c7d2fe;
-            border: 2px solid rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(99, 102, 241, 0.25);
-            border-color: rgba(99, 102, 241, 0.6);
-            transform: translateY(-3px);
-        }
-
-        /* STATS SHOWCASE */
-        .stats-showcase {
+        /* BIG METRICS */
+        .metrics-showcase {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
+            perspective: 1000px;
         }
 
-        .stat-item {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 20px;
+        .metric-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 217, 255, 0.05));
+            border: 2px solid var(--border);
+            border-radius: 12px;
             padding: 2.5rem;
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        .metric-card:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 217, 255, 0.1));
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .metric-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .metric-value {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 900;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-change {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .metric-change.positive {
+            color: var(--primary);
+        }
+
+        /* OPERATIONS MAP */
+        .section {
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            border-top: 2px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .operations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .operation-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .operation-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(0, 255, 136, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .operation-card:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 217, 255, 0.08));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .operation-card:hover::after {
+            opacity: 1;
+        }
+
+        .operation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .country-name {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .country-flag {
+            font-size: 2.5rem;
+        }
+
+        .operation-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .op-stat {
+            background: rgba(0, 255, 136, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .op-stat-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .op-stat-label {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .operation-platforms {
+            margin-top: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .platforms-title {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .platform-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .platform-tag {
+            background: rgba(0, 217, 255, 0.15);
+            border: 1px solid rgba(0, 217, 255, 0.4);
+            color: var(--secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* WORLD MAP */
+        .world-map {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .world-map::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(0, 217, 255, 0.1) 0%, transparent 50%);
+            animation: map-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes map-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .world-map-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .map-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .map-count {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* PLATFORMS GRID */
+        .platforms-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .platform-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -294,613 +489,136 @@
             overflow: hidden;
         }
 
-        .stat-item::before {
+        .platform-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
             transition: left 0.6s ease;
         }
 
-        .stat-item:hover {
-            border-color: rgba(99, 102, 241, 0.6);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
-            transform: translateY(-12px);
-            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+        .platform-card:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 217, 255, 0.08));
+            transform: translateY(-8px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
         }
 
-        .stat-item:hover::before {
+        .platform-card:hover::before {
             left: 100%;
         }
 
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .stat-number {
-            font-size: 2.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* WHY SECTION */
-        .why-section {
-            margin-bottom: 5rem;
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .why-item {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.05));
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .why-item:hover {
-            transform: translateY(-8px);
-            border-color: rgba(99, 102, 241, 0.5);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.08));
-        }
-
-        .why-icon {
+        .platform-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            display: block;
         }
 
-        .why-title {
-            font-size: 1.3rem;
+        .platform-name {
+            font-size: 1.1rem;
             font-weight: 800;
-            color: #fff;
-            margin-bottom: 0.8rem;
-        }
-
-        .why-desc {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-
-        /* FILTERS & SEARCH */
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-            align-items: center;
-            animation: slideUp 0.8s ease 0.2s both;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .search-container {
-            flex: 1;
-            min-width: 280px;
-            position: relative;
-        }
-
-        .search-box {
-            width: 100%;
-            background: rgba(30, 41, 59, 0.6);
-            border: 2px solid rgba(99, 102, 241, 0.3);
-            border-radius: 15px;
-            padding: 1rem 1.5rem;
-            color: #e2e8f0;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(30, 41, 59, 0.9);
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
-        }
-
-        .search-box::placeholder {
-            color: #64748b;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px solid rgba(99, 102, 241, 0.3);
-            color: #cbd5e1;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-color: transparent;
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-        }
-
-        /* PROJECTS GRID */
-        .projects-section {
-            margin-bottom: 5rem;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .project-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.8));
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            group: hover;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            border-color: rgba(99, 102, 241, 0.5);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
-            transform: translateY(-15px);
-            box-shadow: 0 30px 70px rgba(99, 102, 241, 0.25);
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-
-        .project-icon {
-            font-size: 2.8rem;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .project-icon {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-        .project-badges {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .complexity-badge {
-            background: rgba(99, 102, 241, 0.2);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #c7d2fe;
-            padding: 0.3rem 0.7rem;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .complexity-high {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: rgba(239, 68, 68, 0.3);
-            color: #fca5a5;
-        }
-
-        .complexity-medium {
-            background: rgba(251, 146, 60, 0.2);
-            border-color: rgba(251, 146, 60, 0.3);
-            color: #fed7aa;
-        }
-
-        .complexity-low {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: rgba(16, 185, 129, 0.3);
-            color: #86efac;
-        }
-
-        .project-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 0.8rem;
-        }
-
-        .project-desc {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .project-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        .stat-box {
-            background: rgba(99, 102, 241, 0.08);
-            padding: 0.8rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-box-value {
-            font-size: 1.4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-box-label {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            text-transform: uppercase;
-            margin-top: 0.3rem;
-            letter-spacing: 0.5px;
-        }
-
-        .project-stack {
-            display: flex;
-            gap: 0.6rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .tech-tag {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #c7d2fe;
-            padding: 0.4rem 0.9rem;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .tech-tag {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
-            border-color: rgba(99, 102, 241, 0.6);
-        }
-
-        .model-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(34, 197, 94, 0.2));
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #86efac;
-            padding: 0.8rem 1.4rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .model-badge {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(34, 197, 94, 0.3));
-            transform: scale(1.08);
-        }
-
-        /* TESTIMONIALS */
-        .testimonials-section {
-            margin-bottom: 5rem;
-            padding: 4rem 0;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.05));
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            border-radius: 18px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .testimonial-card:hover {
-            border-color: rgba(99, 102, 241, 0.5);
-            transform: translateY(-6px);
-        }
-
-        .testimonial-stars {
-            color: #fbbf24;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-
-        .testimonial-text {
-            color: #cbd5e1;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-            line-height: 1.7;
-        }
-
-        .testimonial-author {
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.3rem;
-        }
-
-        .testimonial-role {
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-
-        /* MODAL */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 25px;
-            padding: 3rem;
-            max-width: 750px;
-            max-height: 85vh;
-            overflow-y: auto;
-            animation: slideIn 0.3s ease;
-            position: relative;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 2rem;
-        }
-
-        .modal-close {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #fca5a5;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.2));
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-desc {
-            color: #cbd5e1;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .modal-section {
-            margin-bottom: 2rem;
-        }
-
-        .modal-section-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             color: var(--primary);
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .modal-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-
-        .modal-stat {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .modal-stat-value {
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .modal-stat-label {
-            font-size: 0.8rem;
-            color: #94a3b8;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
-            margin-top: 0.5rem;
             letter-spacing: 1px;
         }
 
-        /* NO RESULTS */
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #94a3b8;
+        .platform-status {
+            font-size: 0.8rem;
+            color: var(--secondary);
         }
 
-        .no-results i {
-            font-size: 3rem;
-            color: #64748b;
-            margin-bottom: 1rem;
+        .status-active {
+            color: var(--primary);
         }
 
-        /* CTA SECTION */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
-            border: 2px solid rgba(99, 102, 241, 0.3);
-            border-radius: 25px;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: slideUp 0.8s ease;
+        /* LIVE FEED */
+        .live-feed {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 3rem;
         }
 
-        .cta-title {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            color: #fff;
+        .feed-title {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .cta-subtitle {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .feed-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-family: 'Courier New', monospace;
+            animation: fadeInItem 0.5s ease-in-out;
+        }
+
+        .feed-item:last-child {
+            border-bottom: none;
+        }
+
+        @keyframes fadeInItem {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feed-time {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* CHARTS */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-container {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        canvas {
+            max-height: 300px;
         }
 
         /* FOOTER */
         .footer {
             text-align: center;
-            padding: 3rem 1rem;
-            color: #64748b;
-            border-top: 1px solid rgba(99, 102, 241, 0.1);
-        }
-
-        .footer-text {
-            font-size: 0.95rem;
+            padding: 2rem;
+            color: var(--secondary);
+            border-top: 2px solid var(--border);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
         /* SCROLLBAR */
@@ -909,458 +627,541 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(0, 255, 136, 0.05);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: rgba(99, 102, 241, 0.5);
+            background: var(--primary);
             border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(99, 102, 241, 0.8);
+            background: var(--secondary);
         }
 
-        /* RESPONSIVO */
+        /* ANIMATIONS FOR NUMBERS */
+        @keyframes count-up {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* MOBILE */
         @media (max-width: 768px) {
-            .navbar-links {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+
+            .nav-status {
                 display: none;
             }
 
             .hero-title {
-                font-size: 2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-
-            .hero-ctas {
-                flex-direction: column;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                padding: 2rem;
-                max-width: 95vw;
-            }
-
-            .modal-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-container {
-                min-width: 100%;
-            }
-
-            .filter-group {
-                width: 100%;
-            }
-
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-section {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .cta-title {
                 font-size: 1.8rem;
+            }
+
+            .metrics-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="mouse-gradient" id="mouseGradient"></div>
+    <!-- PARTICLES -->
+    <div class="particles" id="particles"></div>
 
     <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-brand">
-                <i class="fas fa-rocket"></i> CascadeProjects
+                <i class="fas fa-terminal"></i> CASCADEPROJECTS
             </div>
-            <ul class="navbar-links">
-                <li><a href="#why">Diferenciais</a></li>
-                <li><a href="#projects">Projetos</a></li>
-                <li><a href="#testimonials">Clientes</a></li>
-            </ul>
-            <button class="cta-btn-nav" onclick="scrollTo('cta')">Solicitar Demo</button>
+            <div class="nav-status">
+                <span><i class="fas fa-circle status-dot"></i> LIVE OPERATIONS</span>
+                <span>v2.4.1</span>
+            </div>
         </div>
     </nav>
 
-    <!-- MAIN -->
+    <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container">
             <!-- HERO -->
             <section class="hero">
-                <div class="hero-badge">
-                    <i class="fas fa-star"></i> Software House em Escala
-                </div>
-                <h1 class="hero-title">Portfólio de Sucesso Multiplataforma</h1>
-                <p class="hero-subtitle">54 projetos entregues • 10.5M linhas de código • 70% economia com IA • Múltiplos domínios de negócio</p>
-                <div class="hero-ctas">
-                    <button class="btn-primary" onclick="scrollTo('projects')">
-                        <i class="fas fa-eye"></i> Explorar Projetos
-                    </button>
-                    <button class="btn-secondary" onclick="scrollTo('cta')">
-                        <i class="fas fa-phone"></i> Agende uma Demo
-                    </button>
-                </div>
+                <h1 class="hero-title">📊 EXECUTIVE DASHBOARD</h1>
+                <p class="hero-subtitle">> GLOBAL OPERATIONS CENTER | REAL-TIME METRICS</p>
             </section>
 
-            <!-- STATS -->
-            <section class="stats-showcase" id="stats">
-                <div class="stat-item">
-                    <div class="stat-icon">📦</div>
-                    <div class="stat-number">54</div>
-                    <div class="stat-label">Projetos Entregues</div>
+            <!-- BIG METRICS -->
+            <section class="metrics-showcase">
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-label">Total Invested</div>
+                        <div class="metric-value" id="investValue">$650K</div>
+                        <div class="metric-change positive">↑ 12% YoY</div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-icon">💻</div>
-                    <div class="stat-number">10.5M</div>
-                    <div class="stat-label">Linhas de Código</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">⚡</div>
-                    <div class="stat-number">70%</div>
-                    <div class="stat-label">Economia com IA</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">🌍</div>
-                    <div class="stat-number">4+</div>
-                    <div class="stat-label">Domínios de Negócio</div>
-                </div>
-            </section>
 
-            <!-- WHY SECTION -->
-            <section class="why-section" id="why">
-                <h2 class="section-title">Por Que Somos Diferentes</h2>
-                <div class="why-grid">
-                    <div class="why-item">
-                        <div class="why-icon">🤖</div>
-                        <div class="why-title">IA Integrada</div>
-                        <div class="why-desc">Cada projeto otimizado com IA, reduzindo custos de desenvolvimento em até 70% sem comprometer qualidade.</div>
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-icon">📦</div>
+                        <div class="metric-label">Projects Deployed</div>
+                        <div class="metric-value" id="projectsValue">54</div>
+                        <div class="metric-change positive">↑ 8 this quarter</div>
                     </div>
-                    <div class="why-item">
-                        <div class="why-icon">⚙️</div>
-                        <div class="why-title">Escalabilidade</div>
-                        <div class="why-desc">Arquitetura cloud-native pronta para crescimento. De MVP a produção corporativa em semanas.</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-icon">🌍</div>
+                        <div class="metric-label">Active Countries</div>
+                        <div class="metric-value" id="countriesValue">12</div>
+                        <div class="metric-change positive">↑ 3 new regions</div>
                     </div>
-                    <div class="why-item">
-                        <div class="why-icon">🔒</div>
-                        <div class="why-title">Segurança de Nível Enterprise</div>
-                        <div class="why-desc">Compliance LGPD, autenticação avançada, criptografia end-to-end e auditorias contínuas.</div>
-                    </div>
-                    <div class="why-item">
-                        <div class="why-icon">📊</div>
-                        <div class="why-title">Analytics & Insights</div>
-                        <div class="why-desc">Dashboards em tempo real com métricas de negócio, performance e comportamento de usuários.</div>
-                    </div>
-                    <div class="why-item">
-                        <div class="why-icon">🚀</div>
-                        <div class="why-title">Entrega Rápida</div>
-                        <div class="why-desc">Metodologia ágil com sprints de 2 semanas. Documentação completa e suporte 24/7.</div>
-                    </div>
-                    <div class="why-item">
-                        <div class="why-icon">💰</div>
-                        <div class="why-title">ROI Comprovado</div>
-                        <div class="why-desc">Clientes reportam payback em 6 meses. Aumento de receita de 40-300% após implementação.</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-icon">⚡</div>
+                        <div class="metric-label">System Uptime</div>
+                        <div class="metric-value" id="uptimeValue">99.98%</div>
+                        <div class="metric-change positive">✓ OPERATIONAL</div>
                     </div>
                 </div>
             </section>
 
-            <!-- CONTROLS -->
-            <div class="controls">
-                <div class="search-container">
-                    <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar projetos por nome, tech stack ou descrição...">
-                </div>
-                <div class="filter-group">
-                    <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="finance">💰 Finance</button>
-                    <button class="filter-btn" data-filter="ecommerce">🛍️ E-commerce</button>
-                    <button class="filter-btn" data-filter="iot">📹 IoT</button>
-                    <button class="filter-btn" data-filter="ai">🤖 AI</button>
-                </div>
-            </div>
+            <!-- WORLD OPERATIONS -->
+            <section class="section">
+                <h2 class="section-title">🗺️ GLOBAL OPERATIONS</h2>
 
-            <!-- PROJECTS GRID -->
-            <section class="projects-section" id="projects">
-                <div class="projects-grid" id="projectsGrid">
-                    <div class="no-results">
-                        <i class="fas fa-hourglass-start"></i>
-                        <p>Carregando projetos...</p>
+                <div class="world-map">
+                    <div class="world-map-content">
+                        <div class="map-title">WORLD COVERAGE MAP</div>
+                        <div class="map-count">12 COUNTRIES</div>
+                        <div>🌍 Americas • Europe • Asia • Africa</div>
+                    </div>
+                </div>
+
+                <div class="operations-grid">
+                    <div class="operation-card">
+                        <div class="operation-header">
+                            <div class="country-name">Brazil 🇧🇷</div>
+                            <span class="country-flag">HQ</span>
+                        </div>
+                        <div class="operation-stats">
+                            <div class="op-stat">
+                                <div class="op-stat-value">18</div>
+                                <div class="op-stat-label">Projects</div>
+                            </div>
+                            <div class="op-stat">
+                                <div class="op-stat-value">$280K</div>
+                                <div class="op-stat-label">Revenue</div>
+                            </div>
+                        </div>
+                        <div class="operation-platforms">
+                            <div class="platforms-title">📱 Platforms</div>
+                            <div class="platform-list">
+                                <span class="platform-tag">React</span>
+                                <span class="platform-tag">Node.js</span>
+                                <span class="platform-tag">AWS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="operation-card">
+                        <div class="operation-header">
+                            <div class="country-name">USA 🇺🇸</div>
+                            <span class="country-flag">🔴</span>
+                        </div>
+                        <div class="operation-stats">
+                            <div class="op-stat">
+                                <div class="op-stat-value">16</div>
+                                <div class="op-stat-label">Projects</div>
+                            </div>
+                            <div class="op-stat">
+                                <div class="op-stat-value">$240K</div>
+                                <div class="op-stat-label">Revenue</div>
+                            </div>
+                        </div>
+                        <div class="operation-platforms">
+                            <div class="platforms-title">📱 Platforms</div>
+                            <div class="platform-list">
+                                <span class="platform-tag">Vue.js</span>
+                                <span class="platform-tag">Python</span>
+                                <span class="platform-tag">Google Cloud</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="operation-card">
+                        <div class="operation-header">
+                            <div class="country-name">Europe 🇪🇺</div>
+                            <span class="country-flag">🔵</span>
+                        </div>
+                        <div class="operation-stats">
+                            <div class="op-stat">
+                                <div class="op-stat-value">12</div>
+                                <div class="op-stat-label">Projects</div>
+                            </div>
+                            <div class="op-stat">
+                                <div class="op-stat-value">$130K</div>
+                                <div class="op-stat-label">Revenue</div>
+                            </div>
+                        </div>
+                        <div class="operation-platforms">
+                            <div class="platforms-title">📱 Platforms</div>
+                            <div class="platform-list">
+                                <span class="platform-tag">Next.js</span>
+                                <span class="platform-tag">Go</span>
+                                <span class="platform-tag">Azure</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="operation-card">
+                        <div class="operation-header">
+                            <div class="country-name">Asia 🇯🇵</div>
+                            <span class="country-flag">🟡</span>
+                        </div>
+                        <div class="operation-stats">
+                            <div class="op-stat">
+                                <div class="op-stat-value">8</div>
+                                <div class="op-stat-label">Projects</div>
+                            </div>
+                            <div class="op-stat">
+                                <div class="op-stat-value">$120K</div>
+                                <div class="op-stat-label">Revenue</div>
+                            </div>
+                        </div>
+                        <div class="operation-platforms">
+                            <div class="platforms-title">📱 Platforms</div>
+                            <div class="platform-list">
+                                <span class="platform-tag">Flutter</span>
+                                <span class="platform-tag">Rust</span>
+                                <span class="platform-tag">Alibaba Cloud</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- TESTIMONIALS -->
-            <section class="testimonials-section" id="testimonials">
-                <h2 class="section-title">O Que Dizem Nossos Clientes</h2>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <div class="testimonial-text">"Entregou em tempo recorde. A qualidade é excepcional e a equipe foi muito profissional do início ao fim."</div>
-                        <div class="testimonial-author">João Silva</div>
-                        <div class="testimonial-role">CTO, FinTech Brasil</div>
+            <!-- TECHNOLOGY STACK -->
+            <section class="section">
+                <h2 class="section-title">⚙️ TECHNOLOGY PLATFORMS</h2>
+
+                <div class="platforms-showcase">
+                    <div class="platform-card">
+                        <span class="platform-icon">⚛️</span>
+                        <div class="platform-name">React</div>
+                        <div class="platform-status status-active">20 IMPLEMENTATIONS</div>
                     </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <div class="testimonial-text">"Reduziram nossos custos em 65% usando IA. Agora somos 3x mais rápidos no desenvolvimento. Recomendo!"</div>
-                        <div class="testimonial-author">Marina Costa</div>
-                        <div class="testimonial-role">VP Tecnologia, E-commerce XYZ</div>
+
+                    <div class="platform-card">
+                        <span class="platform-icon">🟢</span>
+                        <div class="platform-name">Node.js</div>
+                        <div class="platform-status status-active">25 BACKEND APPS</div>
                     </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <div class="testimonial-text">"O suporte foi incrível. Qualquer dúvida resolvida em minutos. Parceria que deu muito certo."</div>
-                        <div class="testimonial-author">Carlos Mendes</div>
-                        <div class="testimonial-role">CEO, StartUp IoT</div>
+
+                    <div class="platform-card">
+                        <span class="platform-icon">🐍</span>
+                        <div class="platform-name">Python</div>
+                        <div class="platform-status status-active">18 ML PROJECTS</div>
+                    </div>
+
+                    <div class="platform-card">
+                        <span class="platform-icon">🔷</span>
+                        <div class="platform-name">Kubernetes</div>
+                        <div class="platform-status status-active">32 CLUSTERS</div>
+                    </div>
+
+                    <div class="platform-card">
+                        <span class="platform-icon">☁️</span>
+                        <div class="platform-name">AWS</div>
+                        <div class="platform-status status-active">150+ SERVICES</div>
+                    </div>
+
+                    <div class="platform-card">
+                        <span class="platform-icon">🤖</span>
+                        <div class="platform-name">AI/ML (Claude)</div>
+                        <div class="platform-status status-active">INTEGRATED</div>
+                    </div>
+
+                    <div class="platform-card">
+                        <span class="platform-icon">⛓️</span>
+                        <div class="platform-name">Blockchain</div>
+                        <div class="platform-status status-active">12 CONTRACTS</div>
+                    </div>
+
+                    <div class="platform-card">
+                        <span class="platform-icon">📊</span>
+                        <div class="platform-name">Analytics</div>
+                        <div class="platform-status status-active">REAL-TIME</div>
                     </div>
                 </div>
             </section>
 
-            <!-- CTA SECTION -->
-            <section class="cta-section" id="cta">
-                <h2 class="cta-title">Pronto para Levar Seu Negócio Adiante?</h2>
-                <p class="cta-subtitle">Nosso time de especialistas está pronto para discutir como podemos ajudar seu projeto. Agendemos uma conversa em 24 horas.</p>
-                <button class="btn-primary" onclick="alert('Funcionalidade de contato será integrada. Email: contato@cascade.dev')">
-                    <i class="fas fa-envelope"></i> Solicitar Demo Agora
-                </button>
+            <!-- LIVE FEED -->
+            <section class="section">
+                <h2 class="section-title">📡 LIVE OPERATIONS FEED</h2>
+                <div class="live-feed" id="liveFeed">
+                    <div class="feed-item">
+                        <span class="feed-time">[14:32:58]</span> ✓ Brazil HQ: Deploy completed - 18 microservices online
+                    </div>
+                    <div class="feed-item">
+                        <span class="feed-time">[14:31:45]</span> ✓ USA Region: Kubernetes cluster scaling +40% capacity
+                    </div>
+                    <div class="feed-item">
+                        <span class="feed-time">[14:30:22]</span> ✓ AI Model: Claude integration active on 5 projects
+                    </div>
+                    <div class="feed-item">
+                        <span class="feed-time">[14:29:05]</span> ✓ Database: PostgreSQL replication sync'd across 3 regions
+                    </div>
+                    <div class="feed-item">
+                        <span class="feed-time">[14:28:10]</span> ✓ Security: 256-bit encryption verified on all endpoints
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHARTS -->
+            <section class="section">
+                <h2 class="section-title">📈 PERFORMANCE ANALYTICS</h2>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Revenue by Region (Last 12 Months)</div>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-title">Project Distribution by Category</div>
+                        <canvas id="projectsChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-title">System Performance (Uptime %)</div>
+                        <canvas id="uptimeChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-title">Team Utilization Rate</div>
+                        <canvas id="utilizationChart"></canvas>
+                    </div>
+                </div>
             </section>
         </div>
 
         <!-- FOOTER -->
         <footer class="footer">
-            <p class="footer-text">🔐 Dados seguros • 📱 100% responsivo • ⚡ Atualizado em tempo real • 🚀 Sempre inovando</p>
+            <p>© 2024 CASCADEPROJECTS | All Systems Operational | Last Updated: <span id="lastUpdate">Now</span></p>
         </footer>
     </div>
 
-    <!-- MODAL -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 class="modal-title" id="modalTitle"></h2>
-                </div>
-                <div class="modal-close" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </div>
-            </div>
-            <div id="modalBody"></div>
-        </div>
-    </div>
-
     <script>
-        // Dados dos 54 projetos (expandido com mais detalhes)
-        const projectsData = [
-            { name: 'emotion-monitor', icon: '👁️', desc: 'Monitor de emoções com IA - Processamento de vídeo e emoções em tempo real com Deep Learning', category: 'iot', stack: ['Node.js', 'OpenCV', 'TensorFlow', 'React'], loc: 1554713, roi: '280%', complexity: 'high', model: '🔴 Opus 4.1' },
-            { name: 'citycost', icon: '🛍️', desc: 'Marketplace de preços - Agregador inteligente de e-commerce com busca de melhores preços', category: 'ecommerce', stack: ['Node.js', 'React', 'PostgreSQL', 'Elasticsearch'], loc: 1282568, roi: '220%', complexity: 'high', model: '🔴 Opus 4.1' },
-            { name: 'planinvest-pusd', icon: '💰', desc: 'Platform de investimentos - Sistema seguro de investimentos em tokens PUSD com smart contracts', category: 'finance', stack: ['Node.js', 'Blockchain', 'Web3.js', 'Solidity'], loc: 889750, roi: '310%', complexity: 'high', model: '🔴 Opus 4.1' },
-            { name: 'planinvest-matechpower', icon: '📊', desc: 'Engine de cálculo financeiro - Motor de simulação de investimentos com ML', category: 'finance', stack: ['Node.js', 'Financial APIs', 'Python', 'NumPy'], loc: 784218, roi: '190%', complexity: 'high', model: '🔴 Opus 4.1' },
-            { name: 'simulador-banca', icon: '🏦', desc: 'Simulador bancário - Plataforma educacional de simulação bancária', category: 'finance', stack: ['Next.js', 'React', 'Node.js', 'MongoDB'], loc: 704843, roi: '150%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
-            { name: 'hyperterm', icon: '⚡', desc: 'Terminal com IA - Interface terminal moderna com assistente IA integrado', category: 'ai', stack: ['Next.js', 'React', 'Claude API', 'xterm.js'], loc: 665274, roi: '170%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
-            { name: 'laren-lagoon-views', icon: '🏠', desc: 'Visualizador imobiliário - Plataforma 3D de visualização e tour virtual de imóveis', category: 'ecommerce', stack: ['Next.js', 'React', 'Three.js', 'WebGL'], loc: 648871, roi: '200%', complexity: 'high', model: '🟠 Sonnet 3.5' },
-            { name: 'ip-bilateral-api', icon: '🔗', desc: 'API bilateral - API robusta de integração de sistemas bilaterais B2B', category: 'finance', stack: ['Python', 'FastAPI', 'PostgreSQL', 'Docker'], loc: 557414, roi: '130%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
-            { name: 'stake-originals', icon: '⛓️', desc: 'Plataforma de staking - Sistema seguro de staking de ativos digitais com yield farming', category: 'finance', stack: ['Node.js', 'React', 'Smart Contracts', 'Web3'], loc: 496227, roi: '240%', complexity: 'high', model: '🟠 Sonnet 3.5' },
-            { name: 'corta-precos-mvp', icon: '💲', desc: 'Agregador de preços - MVP ágil de agregação de preços de múltiplos marketplaces', category: 'ecommerce', stack: ['Node.js', 'React', 'Web Scraping', 'Redis'], loc: 480868, roi: '110%', complexity: 'low', model: '🟠 Sonnet 3.5' },
-            { name: 'nmai-token', icon: '🪙', desc: 'Token + Wallet - Implementação completa de token ERC20 + carteira custódia', category: 'finance', stack: ['Node.js', 'Python', 'Ethereum', 'Smart Contracts'], loc: 468034, roi: '260%', complexity: 'high', model: '🟠 Sonnet 3.5' },
-            { name: 'nmai-wallet-app', icon: '👛', desc: 'Aplicação de wallet - App mobile/web de gerenciamento de cryptocurrency', category: 'finance', stack: ['Node.js', 'React Native', 'Web3', 'Firebase'], loc: 340810, roi: '140%', complexity: 'medium', model: '🟠 Sonnet 3.5' },
-            { name: 'airdrop-farmer', icon: '🌾', desc: 'Airdrop automation - Automação inteligente de farming de airdrops cripto', category: 'finance', stack: ['Node.js', 'Web3.js', 'Blockchain', 'Python'], loc: 268224, roi: '85%', complexity: 'low', model: '🟡 Haiku' },
-            { name: 'kimi-k3-chat', icon: '💬', desc: 'Chatbot com IA - Chatbot conversacional avançado com LLM integrado', category: 'ai', stack: ['Node.js', 'OpenAI API', 'React', 'Socket.io'], loc: 197983, roi: '95%', complexity: 'low', model: '🟡 Haiku' },
-            { name: 'innovative-plan-payments', icon: '💳', desc: 'Sistema de pagamentos - Plataforma robusta de processamento de pagamentos', category: 'finance', stack: ['Express.js', 'Stripe API', 'PostgreSQL', 'Node.js'], loc: 232226, roi: '165%', complexity: 'medium', model: '🟡 Haiku' },
-            { name: 'garcom-restaurante', icon: '🍕', desc: 'App de delivery - Aplicação completa de delivery para restaurantes', category: 'ecommerce', stack: ['Node.js', 'React', 'Maps API', 'Firebase'], loc: 198416, roi: '125%', complexity: 'medium', model: '🟡 Haiku' },
-        ];
-
-        let filteredProjects = projectsData;
-
-        // Mouse follow gradient
-        document.addEventListener('mousemove', (e) => {
-            const gradient = document.getElementById('mouseGradient');
-            gradient.style.left = (e.clientX - 200) + 'px';
-            gradient.style.top = (e.clientY - 200) + 'px';
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scroll helper
-        function scrollTo(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+        // Criar partículas
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                container.appendChild(particle);
             }
         }
 
-        function getComplexityBadge(complexity) {
-            const badges = {
-                'high': `<span class="complexity-badge complexity-high">Alto</span>`,
-                'medium': `<span class="complexity-badge complexity-medium">Médio</span>`,
-                'low': `<span class="complexity-badge complexity-low">Baixo</span>`
+        // Animar números
+        function animateValue(id, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                document.getElementById(id).textContent = value;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
             };
-            return badges[complexity] || '';
+            window.requestAnimationFrame(step);
         }
 
-        function renderProjects(projects) {
-            const grid = document.getElementById('projectsGrid');
-            grid.innerHTML = '';
+        // Live Feed simulado
+        function updateLiveFeed() {
+            const feed = document.getElementById('liveFeed');
+            const messages = [
+                'Deploy pipeline: Feature branch merged to production',
+                'Database backup: Completed successfully (2.3GB)',
+                'Security audit: No vulnerabilities detected',
+                'Load balancing: Traffic distributed across 8 regions',
+                'Cache invalidation: CDN updated in 45ms',
+                'API health check: All endpoints responding 200ms avg',
+                'Slack notification: Team alerted to new metrics',
+                'Blockchain sync: Latest block confirmed',
+                'ML model inference: 500 predictions/sec active',
+                'Customer satisfaction: 4.9/5 stars (1,245 reviews)'
+            ];
 
-            if (projects.length === 0) {
-                grid.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>Nenhum projeto encontrado 🔍</p></div>';
-                grid.style.gridColumn = '1 / -1';
-                return;
-            }
+            setInterval(() => {
+                const now = new Date();
+                const time = now.getHours().toString().padStart(2, '0') + ':' + 
+                           now.getMinutes().toString().padStart(2, '0') + ':' + 
+                           now.getSeconds().toString().padStart(2, '0');
 
-            projects.forEach((project, index) => {
-                const locFormatted = project.loc > 0 ? (project.loc / 1000).toFixed(0) + 'K' : 'N/A';
+                const message = messages[Math.floor(Math.random() * messages.length)];
+                const item = document.createElement('div');
+                item.className = 'feed-item';
+                item.innerHTML = `<span class="feed-time">[${time}]</span> ✓ ${message}`;
 
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.style.animationDelay = `${index * 0.05}s`;
-                card.innerHTML = `
-                    <div class="project-header">
-                        <div class="project-icon">${project.icon}</div>
-                        <div class="project-badges">
-                            ${getComplexityBadge(project.complexity)}
-                        </div>
-                    </div>
-                    <h3 class="project-title">${project.name}</h3>
-                    <p class="project-desc">${project.desc}</p>
-                    <div class="project-stats">
-                        <div class="stat-box">
-                            <div class="stat-box-value">${locFormatted}</div>
-                            <div class="stat-box-label">LOC</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-box-value">${project.roi}</div>
-                            <div class="stat-box-label">ROI</div>
-                        </div>
-                    </div>
-                    <div class="project-stack">
-                        ${project.stack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                    </div>
-                    <div class="model-badge">${project.model}</div>
-                `;
-                card.onclick = () => openModal(project);
-                grid.appendChild(card);
+                feed.insertBefore(item, feed.firstChild);
+                if (feed.children.length > 10) {
+                    feed.removeChild(feed.lastChild);
+                }
+            }, 4000);
+        }
+
+        // Charts
+        function createCharts() {
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Brazil',
+                        data: [15, 18, 22, 25, 28, 32, 35, 38, 40, 42, 45, 50],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        tension: 0.4,
+                        borderWidth: 3,
+                        fill: true
+                    }, {
+                        label: 'USA',
+                        data: [12, 16, 18, 22, 26, 28, 30, 32, 35, 38, 40, 45],
+                        borderColor: '#00d9ff',
+                        backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                        tension: 0.4,
+                        borderWidth: 3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { labels: { color: '#00ff88' } }
+                    },
+                    scales: {
+                        y: { ticks: { color: '#00ff88' }, grid: { color: 'rgba(0, 255, 136, 0.1)' } },
+                        x: { ticks: { color: '#00d9ff' }, grid: { color: 'rgba(0, 217, 255, 0.1)' } }
+                    }
+                }
+            });
+
+            // Projects Chart
+            const projectsCtx = document.getElementById('projectsChart').getContext('2d');
+            new Chart(projectsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Finance', 'E-commerce', 'IoT', 'AI/ML', 'Other'],
+                    datasets: [{
+                        data: [18, 16, 12, 5, 3],
+                        backgroundColor: ['#00ff88', '#00d9ff', '#ff00ff', '#ffd700', '#ff6b6b'],
+                        borderColor: '#0a0e27',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { labels: { color: '#00ff88' } }
+                    }
+                }
+            });
+
+            // Uptime Chart
+            const uptimeCtx = document.getElementById('uptimeChart').getContext('2d');
+            new Chart(uptimeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Uptime %',
+                        data: [99.95, 99.97, 99.98, 99.98],
+                        backgroundColor: '#00ff88',
+                        borderColor: '#00ff88',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { 
+                            ticks: { color: '#00ff88' }, 
+                            grid: { color: 'rgba(0, 255, 136, 0.1)' },
+                            max: 100
+                        },
+                        y: { ticks: { color: '#00d9ff' } }
+                    }
+                }
+            });
+
+            // Utilization Chart
+            const utilizationCtx = document.getElementById('utilizationChart').getContext('2d');
+            new Chart(utilizationCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Frontend', 'Backend', 'DevOps', 'QA', 'Design', 'PM'],
+                    datasets: [{
+                        label: 'Team Utilization',
+                        data: [85, 92, 78, 88, 75, 95],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            ticks: { color: '#00ff88' },
+                            grid: { color: 'rgba(0, 255, 136, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#00ff88' } }
+                    }
+                }
             });
         }
 
-        function openModal(project) {
-            const modal = document.getElementById('modal');
-            const title = document.getElementById('modalTitle');
-            const body = document.getElementById('modalBody');
-            
-            title.textContent = project.name;
-            body.innerHTML = `
-                <p class="modal-desc">${project.desc}</p>
+        // Init
+        window.addEventListener('load', () => {
+            createParticles();
+            animateValue('investValue', 0, 650000, 2000);
+            animateValue('projectsValue', 0, 54, 2000);
+            animateValue('countriesValue', 0, 12, 2000);
+            updateLiveFeed();
+            createCharts();
 
-                <div class="modal-section">
-                    <div class="modal-section-title">📊 Métricas de Negócio</div>
-                    <div class="modal-grid">
-                        <div class="modal-stat">
-                            <div class="modal-stat-value">${project.roi}</div>
-                            <div class="modal-stat-label">ROI Estimado</div>
-                        </div>
-                        <div class="modal-stat">
-                            <div class="modal-stat-value">${project.loc > 0 ? (project.loc / 1000).toFixed(0) + 'K' : 'N/A'}</div>
-                            <div class="modal-stat-label">Linhas de Código</div>
-                        </div>
-                        <div class="modal-stat">
-                            <div class="modal-stat-value">${project.complexity === 'high' ? '🔴 Alto' : project.complexity === 'medium' ? '🟠 Médio' : '🟡 Baixo'}</div>
-                            <div class="modal-stat-label">Complexidade</div>
-                        </div>
-                        <div class="modal-stat">
-                            <div class="modal-stat-value">${project.stack.length}</div>
-                            <div class="modal-stat-label">Tecnologias</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <div class="modal-section-title">🔧 Stack Tecnológico</div>
-                    <div class="project-stack">
-                        ${project.stack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <div class="modal-section-title">🤖 Modelo IA Recomendado</div>
-                    <div class="model-badge">${project.model}</div>
-                </div>
-
-                <div class="modal-section">
-                    <div class="modal-section-title">✨ Destaques</div>
-                    <ul style="color: #cbd5e1; line-height: 2; list-style: none;">
-                        <li>✅ Código production-ready com testes automatizados</li>
-                        <li>✅ Documentação técnica completa</li>
-                        <li>✅ Deploy em ambiente cloud seguro</li>
-                        <li>✅ Suporte técnico 24/7 por 90 dias</li>
-                    </ul>
-                </div>
-            `;
-
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
-
-        // Filtros
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                
-                const filter = e.target.dataset.filter;
-                filteredProjects = filter === 'all' ? projectsData : projectsData.filter(p => p.category === filter);
-                renderProjects(filteredProjects);
-            });
+            // Update last update time
+            setInterval(() => {
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+            }, 1000);
         });
-
-        // Busca
-        document.getElementById('searchBox').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            filteredProjects = projectsData.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.desc.toLowerCase().includes(query) ||
-                p.stack.some(tech => tech.toLowerCase().includes(query))
-            );
-            renderProjects(filteredProjects);
-        });
-
-        // Fechar modal
-        document.getElementById('modal').addEventListener('click', (e) => {
-            if (e.target.id === 'modal') closeModal();
-        });
-
-        // ESC fecha modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        // Render inicial
-        renderProjects(projectsData);
     </script>
 </body>
 </html>
