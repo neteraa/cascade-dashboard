@@ -7,7 +7,7 @@
     <title>CascadeProjects - Dashboard Executivo</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -22,11 +22,11 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --dark: #0f1419;
+            --dark: #0a0e17;
             --darker: #050812;
-            --bg-light: #1a1f2e;
-            --bg-card: #242d3d;
-            --border: #374151;
+            --bg-light: #111827;
+            --bg-card: #1f2937;
+            --border: #2d3748;
             --text-primary: #f3f4f6;
             --text-secondary: #9ca3af;
         }
@@ -37,7 +37,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
             background-attachment: fixed;
             color: var(--text-primary);
             min-height: 100vh;
@@ -50,7 +50,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(180deg, rgba(15, 20, 25, 0.95) 0%, rgba(15, 20, 25, 0.85) 100%);
+            background: linear-gradient(180deg, rgba(10, 14, 23, 0.98) 0%, rgba(10, 14, 23, 0.90) 100%);
             border-bottom: 1px solid var(--border);
             z-index: 100;
             padding: 1rem 2rem;
@@ -58,7 +58,7 @@
         }
 
         .navbar-container {
-            max-width: 1800px;
+            max-width: 1920px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -72,7 +72,6 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            letter-spacing: 0.5px;
         }
 
         .navbar-brand i {
@@ -82,7 +81,7 @@
 
         .navbar-info {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
             font-size: 0.9rem;
             color: var(--text-secondary);
@@ -91,195 +90,317 @@
         .navbar-status {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-content {
+            padding-top: 90px;
+            padding-bottom: 3rem;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .header-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* KPI GRID */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(31, 41, 55, 0.5) 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .kpi:nth-child(2) { animation-delay: 0.05s; }
+        .kpi:nth-child(3) { animation-delay: 0.1s; }
+        .kpi:nth-child(4) { animation-delay: 0.15s; }
+
+        .kpi:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(31, 41, 55, 0.7) 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.1);
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 0.4rem;
+        }
+
+        .kpi-change {
+            font-size: 0.8rem;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* DASHBOARD GRID */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .widget {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .widget:nth-child(2) { animation-delay: 0.05s; }
+        .widget:nth-child(3) { animation-delay: 0.1s; }
+        .widget:nth-child(4) { animation-delay: 0.15s; }
+        .widget:nth-child(5) { animation-delay: 0.2s; }
+        .widget:nth-child(6) { animation-delay: 0.25s; }
+
+        .widget:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.1);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .widget-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .widget-status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--success);
+        }
+
+        .widget-status-dot {
+            width: 6px;
+            height: 6px;
             background: var(--success);
             border-radius: 50%;
             animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--success); }
-            50% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3); }
+        /* CHART CONTAINER */
+        .chart-wrapper {
+            position: relative;
+            height: 280px;
+            margin: 0 -1.5rem -1.5rem;
+            padding: 0 1.5rem 1.5rem;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        canvas {
+            max-height: 280px !important;
         }
 
-        @keyframes slideRight {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes numberCounter {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
-        }
-
-        /* CONTAINER */
-        .container {
-            max-width: 1800px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        .main-content {
-            padding-top: 80px;
-            min-height: 100vh;
-            padding-bottom: 2rem;
-        }
-
-        /* PAGE HEADER */
-        .page-header {
+        /* STATS LIST */
+        .stats-list {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .page-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .page-subtitle {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 0.3rem;
-        }
-
-        .header-actions {
-            display: flex;
+            flex-direction: column;
             gap: 1rem;
         }
 
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            color: var(--text-secondary);
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(0, 102, 255, 0.02);
             border-radius: 6px;
-            cursor: pointer;
+            border-left: 3px solid var(--primary);
+        }
+
+        .stat-label {
             font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            color: var(--text-secondary);
         }
 
-        .btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Space Mono', monospace;
         }
 
-        /* KPI CARDS */
-        .kpi-grid {
+        /* BUSINESS CARDS GRID */
+        .business-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
             margin-bottom: 2rem;
         }
 
-        .kpi-card {
-            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(36, 45, 61, 0.5) 100%);
+        .business-item {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(31, 41, 55, 0.5) 100%);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
             animation: fadeInUp 0.6s ease;
+            cursor: pointer;
         }
 
-        .kpi-card:nth-child(2) {
-            animation-delay: 0.1s;
-        }
+        .business-item:nth-child(2) { animation-delay: 0.05s; }
+        .business-item:nth-child(3) { animation-delay: 0.1s; }
+        .business-item:nth-child(4) { animation-delay: 0.15s; }
+        .business-item:nth-child(5) { animation-delay: 0.2s; }
+        .business-item:nth-child(6) { animation-delay: 0.25s; }
+        .business-item:nth-child(7) { animation-delay: 0.3s; }
 
-        .kpi-card:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .kpi-card:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .kpi-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .kpi-card:hover {
+        .business-item:hover {
             border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, rgba(36, 45, 61, 0.7) 100%);
-            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(31, 41, 55, 0.7) 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.1);
         }
 
-        .kpi-card:hover::before {
-            opacity: 1;
+        .business-icon {
+            font-size: 2rem;
+            margin-bottom: 0.6rem;
         }
 
-        .kpi-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .business-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .business-metric {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* REGION SECTION */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .region-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+            text-align: center;
+        }
+
+        .region-card:nth-child(2) { animation-delay: 0.05s; }
+        .region-card:nth-child(3) { animation-delay: 0.1s; }
+        .region-card:nth-child(4) { animation-delay: 0.15s; }
+
+        .region-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .region-flag {
+            font-size: 2.5rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .region-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 0.8rem;
         }
 
-        .kpi-value {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-family: 'Roboto Mono', monospace;
-            height: 2.8rem;
-            overflow: hidden;
+        .region-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+            font-size: 0.8rem;
         }
 
-        .kpi-value span {
-            display: inline-block;
-        }
-
-        .kpi-change {
-            font-size: 0.85rem;
+        .region-stat-label {
             color: var(--text-secondary);
-            transition: color 0.3s ease;
         }
 
-        .kpi-change.positive {
-            color: var(--success);
-        }
-
-        .kpi-change.negative {
-            color: var(--danger);
+        .region-stat-value {
+            color: var(--primary);
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
         }
 
         /* SECTION */
@@ -288,326 +409,13 @@
             animation: fadeInUp 0.6s ease;
         }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
         .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .section-action {
-            font-size: 0.85rem;
-            color: var(--primary);
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .section-action:hover {
-            color: var(--primary-light);
-        }
-
-        /* BUSINESS LINES */
-        .business-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .business-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: slideRight 0.6s ease;
-        }
-
-        .business-card:nth-child(2) {
-            animation-delay: 0.05s;
-        }
-
-        .business-card:nth-child(3) {
-            animation-delay: 0.1s;
-        }
-
-        .business-card:nth-child(4) {
-            animation-delay: 0.15s;
-        }
-
-        .business-card:nth-child(5) {
-            animation-delay: 0.2s;
-        }
-
-        .business-card:nth-child(6) {
-            animation-delay: 0.25s;
-        }
-
-        .business-card:nth-child(7) {
-            animation-delay: 0.3s;
-        }
-
-        .business-card:hover {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, var(--bg-card) 100%);
-            transform: translateY(-8px);
-        }
-
-        .business-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .business-name {
             font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 1.5rem;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .business-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .business-metrics {
-            display: flex;
-            gap: 0.8rem;
-            font-size: 0.75rem;
-        }
-
-        .business-metric {
-            background: rgba(0, 102, 255, 0.08);
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            border-left: 2px solid var(--primary);
-            color: var(--text-secondary);
-        }
-
-        /* OPERATIONS MAP */
-        .operations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .operation-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: all 0.2s ease;
-            animation: slideRight 0.6s ease;
-        }
-
-        .operation-card:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .operation-card:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .operation-card:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .operation-card:hover {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, var(--bg-card) 100%);
-            transform: translateY(-5px);
-        }
-
-        .country-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1.2rem;
-        }
-
-        .country-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .country-flag {
-            font-size: 1.8rem;
-        }
-
-        .country-status {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--success);
-            color: var(--success);
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
             text-transform: uppercase;
-            margin-top: 0.3rem;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .stats-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .stat-item {
-            background: rgba(0, 102, 255, 0.05);
-            padding: 0.8rem;
-            border-radius: 6px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            margin-bottom: 0.3rem;
-        }
-
-        .stat-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        .platforms-list {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .platforms-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            margin-bottom: 0.6rem;
-        }
-
-        .platform-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .platform-tag {
-            background: rgba(0, 102, 255, 0.1);
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            color: var(--secondary);
-            padding: 0.3rem 0.7rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-
-        /* TECH GRID */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .tech-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.2rem;
-            text-align: center;
-            transition: all 0.2s ease;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .tech-card:nth-child(2) {
-            animation-delay: 0.05s;
-        }
-
-        .tech-card:nth-child(3) {
-            animation-delay: 0.1s;
-        }
-
-        .tech-card:nth-child(4) {
-            animation-delay: 0.15s;
-        }
-
-        .tech-card:nth-child(5) {
-            animation-delay: 0.2s;
-        }
-
-        .tech-card:nth-child(6) {
-            animation-delay: 0.25s;
-        }
-
-        .tech-card:hover {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, var(--bg-card) 100%);
-            transform: translateY(-4px);
-        }
-
-        .tech-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .tech-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        /* CHARTS GRID */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .chart-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .chart-container:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .chart-container:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .chart-container:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .chart-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-
-        canvas {
-            max-height: 300px;
+            letter-spacing: 0.5px;
         }
 
         /* FOOTER */
@@ -616,13 +424,12 @@
             padding: 2rem;
             color: var(--text-secondary);
             border-top: 1px solid var(--border);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         /* SCROLLBAR */
         ::-webkit-scrollbar {
             width: 8px;
-            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
@@ -639,30 +446,31 @@
         }
 
         /* MOBILE */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
             .kpi-grid {
                 grid-template-columns: 1fr 1fr;
             }
 
-            .charts-grid {
+            .dashboard-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .operations-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .header-actions {
-                margin-top: 1rem;
             }
 
             .navbar-info {
                 display: none;
+            }
+
+            .header-title {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -677,327 +485,250 @@
             <div class="navbar-info">
                 <div class="navbar-status">
                     <span class="status-dot"></span>
-                    <span>Sistema Operacional</span>
+                    <span>Operacional</span>
                 </div>
-                <span>|</span>
                 <span id="current-time">--:--</span>
             </div>
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <div class="main-content">
         <div class="container">
-            <!-- PAGE HEADER -->
-            <div class="page-header">
-                <div>
-                    <h1 class="page-title">Dashboard Executivo</h1>
-                    <p class="page-subtitle">Ecossistema em Tempo Real • 7 Linhas de Negócio • 4 Operações Globais</p>
-                </div>
-                <div class="header-actions">
-                    <button class="btn">Exportar Relatório</button>
-                    <button class="btn">Configurações</button>
-                </div>
+            <!-- HEADER -->
+            <div class="header">
+                <h1 class="header-title">Dashboard Executivo</h1>
+                <p class="header-subtitle">Monitoramento em Tempo Real • 7 Linhas de Negócio • 4 Operações Globais</p>
             </div>
 
-            <!-- KPI CARDS -->
+            <!-- KPI -->
             <div class="kpi-grid">
-                <div class="kpi-card">
-                    <div class="kpi-label">💰 Investimento Total</div>
-                    <div class="kpi-value" id="investValue">$0</div>
-                    <div class="kpi-change positive">↑ 12% vs Q3</div>
+                <div class="kpi">
+                    <div class="kpi-label">Investimento</div>
+                    <div class="kpi-value" id="invest">$0</div>
+                    <div class="kpi-change">↑ 12% vs Q3</div>
                 </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-label">📊 Receita Mensal</div>
-                    <div class="kpi-value" id="revenueValue">$0</div>
-                    <div class="kpi-change positive">↑ 8% vs mês anterior</div>
+                <div class="kpi">
+                    <div class="kpi-label">Receita Mensal</div>
+                    <div class="kpi-value" id="revenue">$0</div>
+                    <div class="kpi-change">↑ 8% vs mês</div>
                 </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-label">🚀 Projetos Ativos</div>
-                    <div class="kpi-value" id="projectsValue">0</div>
-                    <div class="kpi-change positive">↑ 5 novos este mês</div>
+                <div class="kpi">
+                    <div class="kpi-label">Clientes Ativos</div>
+                    <div class="kpi-value" id="clients">0</div>
+                    <div class="kpi-change">↑ 120+ new</div>
                 </div>
-
-                <div class="kpi-card">
-                    <div class="kpi-label">⚡ Taxa de Uptime</div>
-                    <div class="kpi-value" id="uptimeValue">99.0%</div>
-                    <div class="kpi-change positive">✓ Operacional</div>
+                <div class="kpi">
+                    <div class="kpi-label">Uptime</div>
+                    <div class="kpi-value" id="uptime">99.9%</div>
+                    <div class="kpi-change">✓ Online</div>
                 </div>
             </div>
 
-            <!-- 7 LINHAS DE NEGÓCIO -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">7 Linhas de Negócio Estratégicas</h2>
-                    <span class="section-action">Ver Relatório Completo →</span>
-                </div>
-                <div class="business-grid">
-                    <div class="business-card">
-                        <div class="business-icon">📦</div>
-                        <div class="business-name">ZatendeStok</div>
-                        <div class="business-desc">PDV, estoque FIFO, fidelidade, fiado e campanhas em uma rotina mais inteligente.</div>
-                        <div class="business-metrics">
-                            <span class="business-metric">👥 1200+ clientes</span>
-                            <span class="business-metric">💹 +28% MoM</span>
+            <!-- CHARTS -->
+            <div class="dashboard-grid">
+                <div class="widget">
+                    <div class="widget-header">
+                        <span class="widget-title">Receita por Região</span>
+                        <div class="widget-status">
+                            <span class="widget-status-dot"></span>
+                            <span>Live</span>
                         </div>
                     </div>
-
-                    <div class="business-card">
-                        <div class="business-icon">💬</div>
-                        <div class="business-name">ProntoChamei</div>
-                        <div class="business-desc">O caminho mais curto entre uma pessoa, uma pergunta e uma resposta que ajuda.</div>
-                        <div class="business-metrics">
-                            <span class="business-metric">📞 5.2M interações</span>
-                            <span class="business-metric">📈 +35% YoY</span>
-                        </div>
-                    </div>
-
-                    <div class="business-card">
-                        <div class="business-icon">🔧</div>
-                        <div class="business-name">CSE6</div>
-                        <div class="business-desc">Tecnologia aplicada a operações, serviços e novos produtos digitais.</div>
-                        <div class="business-metrics">
-                            <span class="business-metric">🏢 18 clientes</span>
-                            <span class="business-metric">🚀 +42% trim</span>
-                        </div>
-                    </div>
-
-                    <div class="business-card">
-                        <div class="business-icon">🎯</div>
-                        <div class="business-name">Zatende CRM</div>
-                        <div class="business-desc">Leads, conversas, campanhas e reuniões reunidos para sua equipe avançar.</div>
-                        <div class="business-metrics">
-                            <span class="business-metric">✉️ 12M emails</span>
-                            <span class="business-metric">↑ +22% QoQ</span>
-                        </div>
-                    </div>
-
-                    <div class="business-card">
-                        <div class="business-icon">🍽️</div>
-                        <div class="business-name">Pedidos JM</div>
-                        <div class="business-desc">Autoatendimento e pedidos por mesa para operações gastronômicas.</div>
-                        <div class="business-metrics">
-                            <span class="business-metric">🍽️ 450+ restaurantes</span>
-                            <span class="business-metric">+51% YoY</span>
-                        </div>
-                    </div>
-
-                    <div class="business-card">
-                        <div class="business-icon">🏢</div>
-                        <div class="business-name">CapitalTok</div>
-                        <div class="business-desc">Imóveis exclusivos nos Emirados, gestão patrimonial e tokenização regulada.</div>
-                        <div class="business-metrics">
-                            <span class="business-metric">🏗️ $45M AUM</span>
-                            <span class="business-metric">+85% WoW</span>
-                        </div>
-                    </div>
-
-                    <div class="business-card">
-                        <div class="business-icon">🚗</div>
-                        <div class="business-name">Fabri</div>
-                        <div class="business-desc">Locação, fretamento e turismo com conforto, segurança e pontualidade.</div>
-                        <div class="business-metrics">
-                            <span class="business-metric">🚙 280 frotas</span>
-                            <span class="business-metric">+19% MoM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OPERAÇÕES GLOBAIS -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Operações Globais - 4 Hubs</h2>
-                    <span class="section-action">Mapa de Operações →</span>
-                </div>
-                <div class="operations-grid">
-                    <!-- BRASIL -->
-                    <div class="operation-card">
-                        <div class="country-header">
-                            <div>
-                                <div class="country-name">🇧🇷 Brasil</div>
-                                <div class="country-status">HQ • Principal Mercado</div>
-                            </div>
-                            <div class="country-flag">🟢</div>
-                        </div>
-                        <div class="stats-row">
-                            <div class="stat-item">
-                                <div class="stat-label">Faturamento</div>
-                                <div class="stat-value" id="br-revenue">$0</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Clientes</div>
-                                <div class="stat-value" id="br-clients">0</div>
-                            </div>
-                        </div>
-                        <div class="platforms-list">
-                            <div class="platforms-label">Stack em Produção</div>
-                            <div class="platform-tags">
-                                <span class="platform-tag">React/Next.js</span>
-                                <span class="platform-tag">Node.js</span>
-                                <span class="platform-tag">PostgreSQL</span>
-                                <span class="platform-tag">AWS</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PARAGUAI -->
-                    <div class="operation-card">
-                        <div class="country-header">
-                            <div>
-                                <div class="country-name">🇵🇾 Paraguai</div>
-                                <div class="country-status">Expansão Regional</div>
-                            </div>
-                            <div class="country-flag">🟡</div>
-                        </div>
-                        <div class="stats-row">
-                            <div class="stat-item">
-                                <div class="stat-label">Faturamento</div>
-                                <div class="stat-value" id="py-revenue">$0</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Clientes</div>
-                                <div class="stat-value" id="py-clients">0</div>
-                            </div>
-                        </div>
-                        <div class="platforms-list">
-                            <div class="platforms-label">Stack em Produção</div>
-                            <div class="platform-tags">
-                                <span class="platform-tag">Flutter</span>
-                                <span class="platform-tag">Python</span>
-                                <span class="platform-tag">MongoDB</span>
-                                <span class="platform-tag">Google Cloud</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PORTUGAL -->
-                    <div class="operation-card">
-                        <div class="country-header">
-                            <div>
-                                <div class="country-name">🇵🇹 Portugal</div>
-                                <div class="country-status">Porta Europa</div>
-                            </div>
-                            <div class="country-flag">🟢</div>
-                        </div>
-                        <div class="stats-row">
-                            <div class="stat-item">
-                                <div class="stat-label">Faturamento</div>
-                                <div class="stat-value" id="pt-revenue">$0</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Clientes</div>
-                                <div class="stat-value" id="pt-clients">0</div>
-                            </div>
-                        </div>
-                        <div class="platforms-list">
-                            <div class="platforms-label">Stack em Produção</div>
-                            <div class="platform-tags">
-                                <span class="platform-tag">Vue.js</span>
-                                <span class="platform-tag">Go</span>
-                                <span class="platform-tag">PostgreSQL</span>
-                                <span class="platform-tag">Azure</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- DUBAI -->
-                    <div class="operation-card">
-                        <div class="country-header">
-                            <div>
-                                <div class="country-name">🇦🇪 Dubai</div>
-                                <div class="country-status">Hub Global</div>
-                            </div>
-                            <div class="country-flag">🟢</div>
-                        </div>
-                        <div class="stats-row">
-                            <div class="stat-item">
-                                <div class="stat-label">Faturamento</div>
-                                <div class="stat-value" id="ae-revenue">$0</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Clientes</div>
-                                <div class="stat-value" id="ae-clients">0</div>
-                            </div>
-                        </div>
-                        <div class="platforms-list">
-                            <div class="platforms-label">Stack em Produção</div>
-                            <div class="platform-tags">
-                                <span class="platform-tag">Blockchain</span>
-                                <span class="platform-tag">Solidity</span>
-                                <span class="platform-tag">Web3</span>
-                                <span class="platform-tag">AWS</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TECNOLOGIAS DE PRÓXIMA GERAÇÃO -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Tecnologias de Próxima Geração em Desenvolvimento</h2>
-                    <span class="section-action">Roadmap Técnico →</span>
-                </div>
-                <div class="tech-grid">
-                    <div class="tech-card">
-                        <div class="tech-icon">⛓️</div>
-                        <div class="tech-name">Tokenização de Ativos</div>
-                    </div>
-
-                    <div class="tech-card">
-                        <div class="tech-icon">🔐</div>
-                        <div class="tech-name">Blockchain</div>
-                    </div>
-
-                    <div class="tech-card">
-                        <div class="tech-icon">🌐</div>
-                        <div class="tech-name">Ativos do Mundo Real</div>
-                    </div>
-
-                    <div class="tech-card">
-                        <div class="tech-icon">⚙️</div>
-                        <div class="tech-name">Contratos Inteligentes</div>
-                    </div>
-
-                    <div class="tech-card">
-                        <div class="tech-icon">🤖</div>
-                        <div class="tech-name">Agentes de IA</div>
-                    </div>
-
-                    <div class="tech-card">
-                        <div class="tech-icon">💳</div>
-                        <div class="tech-name">Pagamentos Digitais</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GRÁFICOS -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Análise de Performance</h2>
-                </div>
-                <div class="charts-grid">
-                    <div class="chart-container">
-                        <div class="chart-title">Receita por Região (12 Meses)</div>
+                    <div class="chart-wrapper">
                         <canvas id="revenueChart"></canvas>
                     </div>
+                </div>
 
-                    <div class="chart-container">
-                        <div class="chart-title">Distribuição de Clientes</div>
+                <div class="widget">
+                    <div class="widget-header">
+                        <span class="widget-title">Distribuição de Clientes</span>
+                        <div class="widget-status">
+                            <span class="widget-status-dot"></span>
+                            <span>Live</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
                         <canvas id="clientsChart"></canvas>
                     </div>
+                </div>
 
-                    <div class="chart-container">
-                        <div class="chart-title">Crescimento Mensal por Linha</div>
+                <div class="widget">
+                    <div class="widget-header">
+                        <span class="widget-title">Performance Global</span>
+                        <div class="widget-status">
+                            <span class="widget-status-dot"></span>
+                            <span>Live</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <span class="widget-title">Crescimento Mensal</span>
+                        <div class="widget-status">
+                            <span class="widget-status-dot"></span>
+                            <span>Live</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
                         <canvas id="growthChart"></canvas>
                     </div>
+                </div>
 
-                    <div class="chart-container">
-                        <div class="chart-title">Performance Global</div>
-                        <canvas id="performanceChart"></canvas>
+                <div class="widget">
+                    <div class="widget-header">
+                        <span class="widget-title">Status de Operações</span>
+                        <div class="widget-status">
+                            <span class="widget-status-dot"></span>
+                            <span>Live</span>
+                        </div>
+                    </div>
+                    <div class="stats-list">
+                        <div class="stat-row">
+                            <span class="stat-label">Brasil (HQ)</span>
+                            <span class="stat-value">$280K</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">USA</span>
+                            <span class="stat-value">$150K</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Europa</span>
+                            <span class="stat-value">$120K</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dubai</span>
+                            <span class="stat-value">$100K</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header">
+                        <span class="widget-title">Linhas Ativas</span>
+                        <div class="widget-status">
+                            <span class="widget-status-dot"></span>
+                            <span>Live</span>
+                        </div>
+                    </div>
+                    <div class="stats-list">
+                        <div class="stat-row">
+                            <span class="stat-label">ZatendeStok</span>
+                            <span class="stat-value">+28%</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ProntoChamei</span>
+                            <span class="stat-value">+35%</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">CSE6</span>
+                            <span class="stat-value">+42%</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">CapitalTok</span>
+                            <span class="stat-value">+85%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUSINESS LINES -->
+            <div class="section">
+                <h2 class="section-title">7 Linhas de Negócio</h2>
+                <div class="business-grid">
+                    <div class="business-item">
+                        <div class="business-icon">📦</div>
+                        <div class="business-name">ZatendeStok</div>
+                        <div class="business-metric">1.2K clientes</div>
+                    </div>
+                    <div class="business-item">
+                        <div class="business-icon">💬</div>
+                        <div class="business-name">ProntoChamei</div>
+                        <div class="business-metric">5.2M eventos</div>
+                    </div>
+                    <div class="business-item">
+                        <div class="business-icon">⚙️</div>
+                        <div class="business-name">CSE6</div>
+                        <div class="business-metric">18 clientes</div>
+                    </div>
+                    <div class="business-item">
+                        <div class="business-icon">🎯</div>
+                        <div class="business-name">Zatende CRM</div>
+                        <div class="business-metric">12M emails</div>
+                    </div>
+                    <div class="business-item">
+                        <div class="business-icon">🍽️</div>
+                        <div class="business-name">Pedidos JM</div>
+                        <div class="business-metric">450+ spots</div>
+                    </div>
+                    <div class="business-item">
+                        <div class="business-icon">🏢</div>
+                        <div class="business-name">CapitalTok</div>
+                        <div class="business-metric">$45M AUM</div>
+                    </div>
+                    <div class="business-item">
+                        <div class="business-icon">🚗</div>
+                        <div class="business-name">Fabri</div>
+                        <div class="business-metric">280 frotas</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REGIONS -->
+            <div class="section">
+                <h2 class="section-title">Operações Globais</h2>
+                <div class="regions-grid">
+                    <div class="region-card">
+                        <div class="region-flag">🇧🇷</div>
+                        <div class="region-name">Brasil (HQ)</div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Receita</span>
+                            <span class="region-stat-value">$280K</span>
+                        </div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Clientes</span>
+                            <span class="region-stat-value">2,100+</span>
+                        </div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-flag">🇵🇾</div>
+                        <div class="region-name">Paraguai</div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Receita</span>
+                            <span class="region-stat-value">$45K</span>
+                        </div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Clientes</span>
+                            <span class="region-stat-value">280+</span>
+                        </div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-flag">🇵🇹</div>
+                        <div class="region-name">Portugal</div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Receita</span>
+                            <span class="region-stat-value">$120K</span>
+                        </div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Clientes</span>
+                            <span class="region-stat-value">520+</span>
+                        </div>
+                    </div>
+                    <div class="region-card">
+                        <div class="region-flag">🇦🇪</div>
+                        <div class="region-name">Dubai</div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Receita</span>
+                            <span class="region-stat-value">$100K</span>
+                        </div>
+                        <div class="region-stat">
+                            <span class="region-stat-label">Clientes</span>
+                            <span class="region-stat-value">85+</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1005,7 +736,7 @@
 
         <!-- FOOTER -->
         <footer class="footer">
-            <p>© 2024 CascadeProjects - Dashboard Executivo | Última atualização: <span id="last-update">--:--:--</span></p>
+            <p>© 2024 CascadeProjects | Dashboard em Tempo Real | Atualizado: <span id="last-update">--:--</span></p>
         </footer>
     </div>
 
@@ -1019,74 +750,67 @@
         updateTime();
         setInterval(updateTime, 1000);
 
-        // Animar números
-        function animateCounter(id, target, duration = 2000) {
-            let start = 0;
+        // Animate counter
+        function animateValue(id, target, duration = 2000) {
+            let current = 0;
             const increment = target / (duration / 16);
             const interval = setInterval(() => {
-                start += increment;
-                if (start >= target) {
-                    start = target;
+                current += increment;
+                if (current >= target) {
+                    current = target;
                     clearInterval(interval);
                 }
-                const element = document.getElementById(id);
-                if (element) {
-                    if (target > 1000) {
-                        element.textContent = '$' + start.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + 'K';
+                const el = document.getElementById(id);
+                if (el) {
+                    if (target > 100) {
+                        el.textContent = '$' + Math.floor(current).toLocaleString() + (target > 1000 ? 'K' : '');
                     } else {
-                        element.textContent = Math.floor(start).toString();
+                        el.textContent = Math.floor(current).toLocaleString();
                     }
                 }
             }, 16);
         }
 
-        // Iniciar animações de números
+        // Float values every 5s
+        function floatMetric(id, baseValue, variance = 0.05) {
+            setInterval(() => {
+                const el = document.getElementById(id);
+                if (el) {
+                    const newVal = baseValue * (1 + (Math.random() - 0.5) * variance);
+                    el.textContent = '$' + Math.floor(newVal).toLocaleString() + (baseValue > 100 ? 'K' : '');
+                }
+            }, 5000);
+        }
+
+        // Init animations
         window.addEventListener('load', () => {
             setTimeout(() => {
-                animateCounter('investValue', 650, 2000);
-                animateCounter('revenueValue', 120, 2000);
-                animateCounter('projectsValue', 54, 2000);
+                animateValue('invest', 650, 2000);
+                animateValue('revenue', 120, 2000);
+                animateValue('clients', 3500, 2000);
                 
-                animateCounter('br-revenue', 280, 2500);
-                animateCounter('br-clients', 1200, 2500);
+                floatMetric('invest', 650, 0.08);
+                floatMetric('revenue', 120, 0.1);
+                floatMetric('clients', 3500, 0.12);
                 
-                animateCounter('py-revenue', 45, 2500);
-                animateCounter('py-clients', 280, 2500);
-                
-                animateCounter('pt-revenue', 65, 2500);
-                animateCounter('pt-clients', 520, 2500);
-                
-                animateCounter('ae-revenue', 120, 2500);
-                animateCounter('ae-clients', 85, 2500);
-
-                // Atualizar a cada 5 segundos com números aleatórios flutuando
+                // Update uptime
                 setInterval(() => {
-                    const investEl = document.getElementById('investValue');
-                    const currentInvest = parseFloat(investEl.textContent);
-                    const newInvest = (currentInvest * (0.98 + Math.random() * 0.04)).toFixed(0);
-                    investEl.textContent = '$' + newInvest + 'K';
-
-                    const revenueEl = document.getElementById('revenueValue');
-                    const currentRev = parseFloat(revenueEl.textContent);
-                    const newRev = (currentRev * (0.97 + Math.random() * 0.06)).toFixed(0);
-                    revenueEl.textContent = '$' + newRev + 'K';
-
-                    const uptimeEl = document.getElementById('uptimeValue');
-                    const currentUptime = parseFloat(uptimeEl.textContent);
-                    const newUptime = (currentUptime + (Math.random() - 0.5) * 0.02).toFixed(2);
-                    uptimeEl.textContent = Math.min(99.99, Math.max(98, newUptime)) + '%';
-                }, 5000);
-            }, 500);
+                    const el = document.getElementById('uptime');
+                    const current = parseFloat(el.textContent);
+                    const newVal = Math.min(99.99, current + (Math.random() - 0.4) * 0.1);
+                    el.textContent = Math.max(98, newVal).toFixed(2) + '%';
+                }, 4000);
+            }, 300);
         });
 
-        // Charts
+        // Chart config
         Chart.defaults.color = '#9ca3af';
-        Chart.defaults.borderColor = '#374151';
+        Chart.defaults.borderColor = '#2d3748';
         Chart.defaults.font.family = "'Inter', sans-serif";
 
         // Revenue Chart
         const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-        new Chart(revenueCtx, {
+        const revenueChart = new Chart(revenueCtx, {
             type: 'line',
             data: {
                 labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
@@ -1098,7 +822,7 @@
                     tension: 0.4,
                     borderWidth: 2,
                     fill: true,
-                    pointRadius: 4,
+                    pointRadius: 3,
                     pointBackgroundColor: '#0066ff'
                 }, {
                     label: 'Global',
@@ -1108,14 +832,21 @@
                     tension: 0.4,
                     borderWidth: 2,
                     fill: true,
-                    pointRadius: 4,
+                    pointRadius: 3,
                     pointBackgroundColor: '#00d9ff'
                 }]
             },
             options: {
                 responsive: true,
-                plugins: { legend: { display: true } },
-                scales: { y: { beginAtZero: true } }
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                    filler: true
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { display: true, color: 'rgba(45, 55, 72, 0.5)' } },
+                    x: { grid: { display: false } }
+                }
             }
         });
 
@@ -1128,13 +859,35 @@
                 datasets: [{
                     data: [1200, 850, 520, 650, 450, 85, 280],
                     backgroundColor: ['#0066ff', '#00d9ff', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6', '#ec4899'],
-                    borderColor: '#1a1f2e',
+                    borderColor: '#1f2937',
                     borderWidth: 2
                 }]
             },
             options: {
                 responsive: true,
-                plugins: { legend: { display: true } }
+                maintainAspectRatio: false,
+                plugins: { legend: { display: true, position: 'right' } }
+            }
+        });
+
+        // Performance Radar
+        const perfCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(perfCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Brasil', 'Paraguai', 'Portugal', 'Dubai', 'Uptime', 'Escalabilidade'],
+                datasets: [{
+                    label: 'Performance',
+                    data: [95, 78, 82, 88, 99.98, 92],
+                    borderColor: '#0066ff',
+                    backgroundColor: 'rgba(0, 102, 255, 0.1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { r: { beginAtZero: true, max: 100 } }
             }
         });
 
@@ -1149,33 +902,16 @@
                     data: [28, 35, 42, 22, 51, 85, 19],
                     backgroundColor: '#0066ff',
                     borderColor: '#0066ff',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderRadius: 4
                 }]
             },
             options: {
                 responsive: true,
-                scales: { y: { beginAtZero: true } }
-            }
-        });
-
-        // Performance Global
-        const perfCtx = document.getElementById('performanceChart').getContext('2d');
-        new Chart(perfCtx, {
-            type: 'radar',
-            data: {
-                labels: ['Brasil', 'Paraguai', 'Portugal', 'Dubai', 'Uptime', 'Escalabilidade'],
-                datasets: [{
-                    label: 'Performance Score',
-                    data: [95, 78, 82, 88, 99.98, 92],
-                    borderColor: '#0066ff',
-                    backgroundColor: 'rgba(0, 102, 255, 0.1)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
-                    r: { beginAtZero: true, max: 100 }
+                    y: { beginAtZero: true, grid: { color: 'rgba(45, 55, 72, 0.5)' } },
+                    x: { grid: { display: false } }
                 }
             }
         });
