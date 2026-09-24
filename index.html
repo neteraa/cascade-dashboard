@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CascadeProjects - Dashboard Executivo de Operações Globais">
-    <title>CascadeProjects - Dashboard Executivo</title>
+    <meta name="description" content="CascadeProjects - Dashboard Operacional Interno">
+    <title>CascadeProjects - Dashboard Operacional</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,14 +16,19 @@
         }
 
         :root {
-            --primary: #00ff88;
-            --primary-dark: #00cc66;
+            --primary: #0066ff;
+            --primary-light: #3d5afe;
             --secondary: #00d9ff;
-            --accent: #ff00ff;
-            --dark: #0a0e27;
-            --darker: #050811;
-            --card-bg: rgba(15, 23, 50, 0.6);
-            --border: rgba(0, 255, 136, 0.2);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f1419;
+            --darker: #050812;
+            --bg-light: #1a1f2e;
+            --bg-card: #242d3d;
+            --border: #374151;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
         }
 
         html {
@@ -30,63 +36,12 @@
         }
 
         body {
-            font-family: 'Courier New', 'IBM Plex Mono', monospace;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
             background-attachment: fixed;
-            color: #e2e8f0;
+            color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
-        }
-
-        /* ANIMATED GRID BG */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                linear-gradient(0deg, transparent 24%, rgba(0, 255, 136, 0.05) 25%, rgba(0, 255, 136, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 136, 0.05) 75%, rgba(0, 255, 136, 0.05) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, rgba(0, 255, 136, 0.05) 25%, rgba(0, 255, 136, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 136, 0.05) 75%, rgba(0, 255, 136, 0.05) 76%, transparent 77%, transparent);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 1;
-            animation: gridScroll 20s linear infinite;
-        }
-
-        @keyframes gridScroll {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
-        }
-
-        /* FLOATING PARTICLES */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 20s infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
         /* NAVBAR */
@@ -95,15 +50,15 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 14, 39, 0.95);
-            border-bottom: 2px solid var(--border);
+            background: linear-gradient(180deg, rgba(15, 20, 25, 0.95) 0%, rgba(15, 20, 25, 0.85) 100%);
+            border-bottom: 1px solid var(--border);
             z-index: 100;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             backdrop-filter: blur(10px);
         }
 
         .navbar-container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -111,585 +66,522 @@
         }
 
         .navbar-brand {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .navbar-brand i {
-            font-size: 2rem;
-            animation: pulse-glow 2s ease-in-out infinite;
+            color: var(--primary);
+            font-size: 1.6rem;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { text-shadow: 0 0 10px var(--primary); }
-            50% { text-shadow: 0 0 20px var(--primary); }
-        }
-
-        .nav-status {
+        .navbar-info {
             display: flex;
             gap: 2rem;
             align-items: center;
             font-size: 0.9rem;
-            color: var(--secondary);
+            color: var(--text-secondary);
+        }
+
+        .navbar-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .status-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
+            width: 8px;
+            height: 8px;
+            background: var(--success);
             border-radius: 50%;
-            animation: blink 1s ease-in-out infinite;
-            box-shadow: 0 0 5px var(--primary);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--success); }
+            50% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3); }
         }
 
         /* CONTAINER */
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 0 1.5rem;
-            position: relative;
-            z-index: 10;
         }
 
         .main-content {
-            padding-top: 100px;
+            padding-top: 80px;
             min-height: 100vh;
+            padding-bottom: 2rem;
         }
 
-        /* HERO DASHBOARD */
-        .hero {
-            text-align: center;
-            padding: 3rem 0 2rem;
-            position: relative;
-        }
-
-        .hero-title {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-            animation: glow-text 3s ease-in-out infinite;
-        }
-
-        @keyframes glow-text {
-            0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
-            50% { text-shadow: 0 0 40px rgba(0, 255, 136, 0.8); }
-        }
-
-        .hero-subtitle {
-            font-size: 1rem;
-            color: var(--secondary);
+        /* PAGE HEADER */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
-            letter-spacing: 1px;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        /* BIG METRICS */
-        .metrics-showcase {
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* KPI CARDS */
+        .kpi-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 3rem;
-            perspective: 1000px;
-        }
-
-        .metric-card {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 217, 255, 0.05));
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            animation: grid-move 20s linear infinite;
-        }
-
-        @keyframes grid-move {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(20px, 20px); }
-        }
-
-        .metric-card:hover {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 217, 255, 0.1));
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-            transform: translateY(-10px);
-        }
-
-        .metric-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .metric-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-
-        .metric-label {
-            font-size: 0.85rem;
-            color: var(--secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.8rem;
-        }
-
-        .metric-value {
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            font-weight: 900;
-            color: var(--primary);
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-change {
-            font-size: 0.9rem;
-            color: var(--secondary);
-        }
-
-        .metric-change.positive {
-            color: var(--primary);
-        }
-
-        /* OPERATIONS MAP */
-        .section {
-            margin-bottom: 4rem;
-            padding: 3rem 0;
-            border-top: 2px solid var(--border);
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 900;
             margin-bottom: 2rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .operations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .operation-card {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
+        .kpi-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(36, 45, 61, 0.5) 100%);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 2rem;
+            padding: 1.5rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .operation-card::after {
+        .kpi-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent, rgba(0, 255, 136, 0.1));
+            height: 3px;
+            background: var(--primary);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        .operation-card:hover {
+        .kpi-card:hover {
             border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 217, 255, 0.08));
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, rgba(36, 45, 61, 0.7) 100%);
         }
 
-        .operation-card:hover::after {
+        .kpi-card:hover::before {
             opacity: 1;
         }
 
-        .operation-header {
+        .kpi-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .kpi-change {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .kpi-change.positive {
+            color: var(--success);
+        }
+
+        .kpi-change.negative {
+            color: var(--danger);
+        }
+
+        /* SECTION */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-action {
+            font-size: 0.85rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .section-action:hover {
+            color: var(--primary-light);
+        }
+
+        /* OPERATIONS GRID */
+        .operations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .operation-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .operation-card:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, var(--bg-card) 100%);
+        }
+
+        .country-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 1.2rem;
         }
 
         .country-name {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .country-flag {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
         }
 
-        .operation-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .op-stat {
-            background: rgba(0, 255, 136, 0.05);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .op-stat-value {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary);
-        }
-
-        .op-stat-label {
-            font-size: 0.75rem;
-            color: var(--secondary);
+        .country-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
             text-transform: uppercase;
             margin-top: 0.3rem;
         }
 
-        .operation-platforms {
-            margin-top: 1rem;
-            position: relative;
-            z-index: 2;
+        .country-status.offline {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
+            color: var(--danger);
         }
 
-        .platforms-title {
-            font-size: 0.8rem;
-            color: var(--secondary);
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-item {
+            background: rgba(0, 102, 255, 0.05);
+            padding: 0.8rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
             text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
         }
 
-        .platform-list {
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .platforms-list {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .platforms-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .platform-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         .platform-tag {
-            background: rgba(0, 217, 255, 0.15);
-            border: 1px solid rgba(0, 217, 255, 0.4);
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 102, 255, 0.3);
             color: var(--secondary);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
         }
 
-        /* WORLD MAP */
-        .world-map {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--primary);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .world-map::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 30%, rgba(0, 217, 255, 0.1) 0%, transparent 50%);
-            animation: map-pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes map-pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        .world-map-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .map-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .map-count {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        /* PLATFORMS GRID */
-        .platforms-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .platform-card {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .platform-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .platform-card:hover {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 217, 255, 0.08));
-            transform: translateY(-8px);
-            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
-        }
-
-        .platform-card:hover::before {
-            left: 100%;
-        }
-
-        .platform-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .platform-name {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .platform-status {
-            font-size: 0.8rem;
-            color: var(--secondary);
-        }
-
-        .status-active {
-            color: var(--primary);
-        }
-
-        /* LIVE FEED */
-        .live-feed {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 2rem;
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 3rem;
-        }
-
-        .feed-title {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .feed-item {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.85rem;
-            color: var(--secondary);
-            font-family: 'Courier New', monospace;
-            animation: fadeInItem 0.5s ease-in-out;
-        }
-
-        .feed-item:last-child {
-            border-bottom: none;
-        }
-
-        @keyframes fadeInItem {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .feed-time {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        /* CHARTS */
+        /* CHARTS GRID */
         .charts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .chart-container {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 217, 255, 0.04));
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 2rem;
-            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
         }
 
         .chart-title {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
         }
 
         canvas {
             max-height: 300px;
         }
 
+        /* WORLD MAP */
+        .world-map-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .world-map-title {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .world-map-content {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .world-map-regions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .region-dot {
+            padding: 1rem;
+            background: rgba(0, 102, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .region-dot.active {
+            background: rgba(0, 102, 255, 0.15);
+            border-color: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* PORTFOLIO TABLE */
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: rgba(0, 102, 255, 0.05);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background: rgba(0, 102, 255, 0.03);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.live {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-badge.dev {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
         /* FOOTER */
         .footer {
             text-align: center;
             padding: 2rem;
-            color: var(--secondary);
-            border-top: 2px solid var(--border);
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
             font-size: 0.85rem;
-            letter-spacing: 1px;
         }
 
         /* SCROLLBAR */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(0, 255, 136, 0.05);
+            background: var(--bg-light);
         }
 
         ::-webkit-scrollbar-thumb {
             background: var(--primary);
-            border-radius: 5px;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary);
-        }
-
-        /* ANIMATIONS FOR NUMBERS */
-        @keyframes count-up {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            background: var(--primary-light);
         }
 
         /* MOBILE */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem;
-            }
-
-            .navbar-brand {
-                font-size: 1.3rem;
-            }
-
-            .nav-status {
-                display: none;
-            }
-
-            .hero-title {
-                font-size: 1.8rem;
-            }
-
-            .metrics-showcase {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
             .charts-grid {
                 grid-template-columns: 1fr;
             }
+
+            .operations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                margin-top: 1rem;
+            }
+
+            .navbar-info {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- PARTICLES -->
-    <div class="particles" id="particles"></div>
-
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-brand">
-                <i class="fas fa-terminal"></i> CASCADEPROJECTS
+                <i class="fas fa-chart-line"></i> CascadeProjects
             </div>
-            <div class="nav-status">
-                <span><i class="fas fa-circle status-dot"></i> LIVE OPERATIONS</span>
-                <span>v2.4.1</span>
+            <div class="navbar-info">
+                <div class="navbar-status">
+                    <span class="status-dot"></span>
+                    <span>Sistema Operacional</span>
+                </div>
+                <span>|</span>
+                <span id="current-time">--:--</span>
             </div>
         </div>
     </nav>
@@ -697,132 +589,153 @@
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container">
-            <!-- HERO -->
-            <section class="hero">
-                <h1 class="hero-title">📊 EXECUTIVE DASHBOARD</h1>
-                <p class="hero-subtitle">> GLOBAL OPERATIONS CENTER | REAL-TIME METRICS</p>
-            </section>
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Dashboard de Operações</h1>
+                    <p class="page-subtitle">Monitoramento Global • 12 Países • 54 Projetos em Produção</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn">Exportar Relatório</button>
+                    <button class="btn">Configurações</button>
+                </div>
+            </div>
 
-            <!-- BIG METRICS -->
-            <section class="metrics-showcase">
-                <div class="metric-card">
-                    <div class="metric-content">
-                        <div class="metric-icon">💰</div>
-                        <div class="metric-label">Total Invested</div>
-                        <div class="metric-value" id="investValue">$650K</div>
-                        <div class="metric-change positive">↑ 12% YoY</div>
-                    </div>
+            <!-- KPI CARDS -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">💰 Investimento Total</div>
+                    <div class="kpi-value">$650K</div>
+                    <div class="kpi-change positive">↑ 12% vs Q3</div>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-content">
-                        <div class="metric-icon">📦</div>
-                        <div class="metric-label">Projects Deployed</div>
-                        <div class="metric-value" id="projectsValue">54</div>
-                        <div class="metric-change positive">↑ 8 this quarter</div>
-                    </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">📊 Projetos em Produção</div>
+                    <div class="kpi-value">54</div>
+                    <div class="kpi-change positive">↑ 8 novos este mês</div>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-content">
-                        <div class="metric-icon">🌍</div>
-                        <div class="metric-label">Active Countries</div>
-                        <div class="metric-value" id="countriesValue">12</div>
-                        <div class="metric-change positive">↑ 3 new regions</div>
-                    </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">🌍 Países Operacionais</div>
+                    <div class="kpi-value">12</div>
+                    <div class="kpi-change positive">↑ 3 em expansão</div>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-content">
-                        <div class="metric-icon">⚡</div>
-                        <div class="metric-label">System Uptime</div>
-                        <div class="metric-value" id="uptimeValue">99.98%</div>
-                        <div class="metric-change positive">✓ OPERATIONAL</div>
+                <div class="kpi-card">
+                    <div class="kpi-label">⚡ Taxa de Uptime</div>
+                    <div class="kpi-value">99.98%</div>
+                    <div class="kpi-change positive">✓ Operacional</div>
+                </div>
+            </div>
+
+            <!-- MAPA MUNDIAL -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Cobertura Global</h2>
+                </div>
+                <div class="world-map-container">
+                    <div class="world-map-title">Presença em Múltiplos Continentes</div>
+                    <div class="world-map-content">🌍 🌎 🌏</div>
+                    <div class="world-map-regions">
+                        <div class="region-dot active">🇧🇷 Brasil (HQ)</div>
+                        <div class="region-dot active">🇺🇸 USA</div>
+                        <div class="region-dot active">🇬🇧 Europa</div>
+                        <div class="region-dot active">🇯🇵 Ásia</div>
+                        <div class="region-dot">🇦🇺 Oceania</div>
+                        <div class="region-dot">🌐 Outras Regiões</div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- WORLD OPERATIONS -->
-            <section class="section">
-                <h2 class="section-title">🗺️ GLOBAL OPERATIONS</h2>
-
-                <div class="world-map">
-                    <div class="world-map-content">
-                        <div class="map-title">WORLD COVERAGE MAP</div>
-                        <div class="map-count">12 COUNTRIES</div>
-                        <div>🌍 Americas • Europe • Asia • Africa</div>
-                    </div>
+            <!-- OPERAÇÕES POR PAÍS -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Operações por Região</h2>
+                    <span class="section-action">Ver Detalhes Completos →</span>
                 </div>
-
                 <div class="operations-grid">
+                    <!-- BRASIL -->
                     <div class="operation-card">
-                        <div class="operation-header">
-                            <div class="country-name">Brazil 🇧🇷</div>
-                            <span class="country-flag">HQ</span>
-                        </div>
-                        <div class="operation-stats">
-                            <div class="op-stat">
-                                <div class="op-stat-value">18</div>
-                                <div class="op-stat-label">Projects</div>
+                        <div class="country-header">
+                            <div>
+                                <div class="country-name">🇧🇷 Brasil</div>
+                                <div class="country-status">Ativo - HQ</div>
                             </div>
-                            <div class="op-stat">
-                                <div class="op-stat-value">$280K</div>
-                                <div class="op-stat-label">Revenue</div>
+                            <div class="country-flag">🟢</div>
+                        </div>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-label">Projetos</div>
+                                <div class="stat-value">18</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Receita</div>
+                                <div class="stat-value">$280K</div>
                             </div>
                         </div>
-                        <div class="operation-platforms">
-                            <div class="platforms-title">📱 Platforms</div>
-                            <div class="platform-list">
+                        <div class="platforms-list">
+                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platform-tags">
                                 <span class="platform-tag">React</span>
                                 <span class="platform-tag">Node.js</span>
+                                <span class="platform-tag">PostgreSQL</span>
                                 <span class="platform-tag">AWS</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- USA -->
                     <div class="operation-card">
-                        <div class="operation-header">
-                            <div class="country-name">USA 🇺🇸</div>
-                            <span class="country-flag">🔴</span>
-                        </div>
-                        <div class="operation-stats">
-                            <div class="op-stat">
-                                <div class="op-stat-value">16</div>
-                                <div class="op-stat-label">Projects</div>
+                        <div class="country-header">
+                            <div>
+                                <div class="country-name">🇺🇸 Estados Unidos</div>
+                                <div class="country-status">Ativo</div>
                             </div>
-                            <div class="op-stat">
-                                <div class="op-stat-value">$240K</div>
-                                <div class="op-stat-label">Revenue</div>
+                            <div class="country-flag">🟢</div>
+                        </div>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-label">Projetos</div>
+                                <div class="stat-value">16</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Receita</div>
+                                <div class="stat-value">$240K</div>
                             </div>
                         </div>
-                        <div class="operation-platforms">
-                            <div class="platforms-title">📱 Platforms</div>
-                            <div class="platform-list">
+                        <div class="platforms-list">
+                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platform-tags">
                                 <span class="platform-tag">Vue.js</span>
                                 <span class="platform-tag">Python</span>
                                 <span class="platform-tag">Google Cloud</span>
+                                <span class="platform-tag">Kubernetes</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- EUROPA -->
                     <div class="operation-card">
-                        <div class="operation-header">
-                            <div class="country-name">Europe 🇪🇺</div>
-                            <span class="country-flag">🔵</span>
-                        </div>
-                        <div class="operation-stats">
-                            <div class="op-stat">
-                                <div class="op-stat-value">12</div>
-                                <div class="op-stat-label">Projects</div>
+                        <div class="country-header">
+                            <div>
+                                <div class="country-name">🇬🇧 Europa</div>
+                                <div class="country-status">Ativo</div>
                             </div>
-                            <div class="op-stat">
-                                <div class="op-stat-value">$130K</div>
-                                <div class="op-stat-label">Revenue</div>
+                            <div class="country-flag">🟢</div>
+                        </div>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-label">Projetos</div>
+                                <div class="stat-value">12</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Receita</div>
+                                <div class="stat-value">$130K</div>
                             </div>
                         </div>
-                        <div class="operation-platforms">
-                            <div class="platforms-title">📱 Platforms</div>
-                            <div class="platform-list">
+                        <div class="platforms-list">
+                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platform-tags">
                                 <span class="platform-tag">Next.js</span>
                                 <span class="platform-tag">Go</span>
                                 <span class="platform-tag">Azure</span>
@@ -830,24 +743,28 @@
                         </div>
                     </div>
 
+                    <!-- ÁSIA -->
                     <div class="operation-card">
-                        <div class="operation-header">
-                            <div class="country-name">Asia 🇯🇵</div>
-                            <span class="country-flag">🟡</span>
-                        </div>
-                        <div class="operation-stats">
-                            <div class="op-stat">
-                                <div class="op-stat-value">8</div>
-                                <div class="op-stat-label">Projects</div>
+                        <div class="country-header">
+                            <div>
+                                <div class="country-name">🇯🇵 Ásia</div>
+                                <div class="country-status">Ativo</div>
                             </div>
-                            <div class="op-stat">
-                                <div class="op-stat-value">$120K</div>
-                                <div class="op-stat-label">Revenue</div>
+                            <div class="country-flag">🟢</div>
+                        </div>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <div class="stat-label">Projetos</div>
+                                <div class="stat-value">8</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Receita</div>
+                                <div class="stat-value">$120K</div>
                             </div>
                         </div>
-                        <div class="operation-platforms">
-                            <div class="platforms-title">📱 Platforms</div>
-                            <div class="platform-list">
+                        <div class="platforms-list">
+                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platform-tags">
                                 <span class="platform-tag">Flutter</span>
                                 <span class="platform-tag">Rust</span>
                                 <span class="platform-tag">Alibaba Cloud</span>
@@ -855,312 +772,236 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- TECHNOLOGY STACK -->
-            <section class="section">
-                <h2 class="section-title">⚙️ TECHNOLOGY PLATFORMS</h2>
-
-                <div class="platforms-showcase">
-                    <div class="platform-card">
-                        <span class="platform-icon">⚛️</span>
-                        <div class="platform-name">React</div>
-                        <div class="platform-status status-active">20 IMPLEMENTATIONS</div>
-                    </div>
-
-                    <div class="platform-card">
-                        <span class="platform-icon">🟢</span>
-                        <div class="platform-name">Node.js</div>
-                        <div class="platform-status status-active">25 BACKEND APPS</div>
-                    </div>
-
-                    <div class="platform-card">
-                        <span class="platform-icon">🐍</span>
-                        <div class="platform-name">Python</div>
-                        <div class="platform-status status-active">18 ML PROJECTS</div>
-                    </div>
-
-                    <div class="platform-card">
-                        <span class="platform-icon">🔷</span>
-                        <div class="platform-name">Kubernetes</div>
-                        <div class="platform-status status-active">32 CLUSTERS</div>
-                    </div>
-
-                    <div class="platform-card">
-                        <span class="platform-icon">☁️</span>
-                        <div class="platform-name">AWS</div>
-                        <div class="platform-status status-active">150+ SERVICES</div>
-                    </div>
-
-                    <div class="platform-card">
-                        <span class="platform-icon">🤖</span>
-                        <div class="platform-name">AI/ML (Claude)</div>
-                        <div class="platform-status status-active">INTEGRATED</div>
-                    </div>
-
-                    <div class="platform-card">
-                        <span class="platform-icon">⛓️</span>
-                        <div class="platform-name">Blockchain</div>
-                        <div class="platform-status status-active">12 CONTRACTS</div>
-                    </div>
-
-                    <div class="platform-card">
-                        <span class="platform-icon">📊</span>
-                        <div class="platform-name">Analytics</div>
-                        <div class="platform-status status-active">REAL-TIME</div>
-                    </div>
+            <!-- GRÁFICOS -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Análise de Performance</h2>
                 </div>
-            </section>
-
-            <!-- LIVE FEED -->
-            <section class="section">
-                <h2 class="section-title">📡 LIVE OPERATIONS FEED</h2>
-                <div class="live-feed" id="liveFeed">
-                    <div class="feed-item">
-                        <span class="feed-time">[14:32:58]</span> ✓ Brazil HQ: Deploy completed - 18 microservices online
-                    </div>
-                    <div class="feed-item">
-                        <span class="feed-time">[14:31:45]</span> ✓ USA Region: Kubernetes cluster scaling +40% capacity
-                    </div>
-                    <div class="feed-item">
-                        <span class="feed-time">[14:30:22]</span> ✓ AI Model: Claude integration active on 5 projects
-                    </div>
-                    <div class="feed-item">
-                        <span class="feed-time">[14:29:05]</span> ✓ Database: PostgreSQL replication sync'd across 3 regions
-                    </div>
-                    <div class="feed-item">
-                        <span class="feed-time">[14:28:10]</span> ✓ Security: 256-bit encryption verified on all endpoints
-                    </div>
-                </div>
-            </section>
-
-            <!-- CHARTS -->
-            <section class="section">
-                <h2 class="section-title">📈 PERFORMANCE ANALYTICS</h2>
-
                 <div class="charts-grid">
                     <div class="chart-container">
-                        <div class="chart-title">Revenue by Region (Last 12 Months)</div>
+                        <div class="chart-title">Receita por Região (12 Meses)</div>
                         <canvas id="revenueChart"></canvas>
                     </div>
 
                     <div class="chart-container">
-                        <div class="chart-title">Project Distribution by Category</div>
+                        <div class="chart-title">Distribuição de Projetos</div>
                         <canvas id="projectsChart"></canvas>
                     </div>
 
                     <div class="chart-container">
-                        <div class="chart-title">System Performance (Uptime %)</div>
+                        <div class="chart-title">Taxa de Uptime por Região</div>
                         <canvas id="uptimeChart"></canvas>
                     </div>
 
                     <div class="chart-container">
-                        <div class="chart-title">Team Utilization Rate</div>
-                        <canvas id="utilizationChart"></canvas>
+                        <div class="chart-title">Crescimento Mensal</div>
+                        <canvas id="growthChart"></canvas>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- PORTFOLIO DE PROJETOS -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Portfolio de Projetos</h2>
+                    <span class="section-action">Ver 54 Projetos →</span>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Projeto</th>
+                                <th>Categoria</th>
+                                <th>Status</th>
+                                <th>Região</th>
+                                <th>Stack</th>
+                                <th>Receita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>emotion-monitor</strong></td>
+                                <td>IoT/IA</td>
+                                <td><span class="status-badge live">Live</span></td>
+                                <td>Brasil</td>
+                                <td>Node.js, TensorFlow, OpenCV</td>
+                                <td>$45K</td>
+                            </tr>
+                            <tr>
+                                <td><strong>citycost</strong></td>
+                                <td>E-commerce</td>
+                                <td><span class="status-badge live">Live</span></td>
+                                <td>USA</td>
+                                <td>React, PostgreSQL, Elasticsearch</td>
+                                <td>$52K</td>
+                            </tr>
+                            <tr>
+                                <td><strong>planinvest-pusd</strong></td>
+                                <td>Finance</td>
+                                <td><span class="status-badge live">Live</span></td>
+                                <td>Brasil</td>
+                                <td>Blockchain, Solidity, Web3</td>
+                                <td>$38K</td>
+                            </tr>
+                            <tr>
+                                <td><strong>planinvest-matechpower</strong></td>
+                                <td>Finance</td>
+                                <td><span class="status-badge live">Live</span></td>
+                                <td>Europa</td>
+                                <td>Python, NumPy, Financial APIs</td>
+                                <td>$35K</td>
+                            </tr>
+                            <tr>
+                                <td><strong>simulador-banca</strong></td>
+                                <td>Finance/Edu</td>
+                                <td><span class="status-badge live">Live</span></td>
+                                <td>Ásia</td>
+                                <td>Next.js, Node.js, MongoDB</td>
+                                <td>$28K</td>
+                            </tr>
+                            <tr>
+                                <td><strong>hyperterm</strong></td>
+                                <td>AI Tools</td>
+                                <td><span class="status-badge dev">Dev</span></td>
+                                <td>Brasil</td>
+                                <td>React, Claude API, xterm.js</td>
+                                <td>$22K</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- FOOTER -->
         <footer class="footer">
-            <p>© 2024 CASCADEPROJECTS | All Systems Operational | Last Updated: <span id="lastUpdate">Now</span></p>
+            <p>© 2024 CascadeProjects - Dashboard Interno | Última atualização: <span id="last-update">--:--:--</span></p>
         </footer>
     </div>
 
     <script>
-        // Criar partículas
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                container.appendChild(particle);
-            }
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('pt-BR');
+            document.getElementById('last-update').textContent = now.toLocaleTimeString('pt-BR');
         }
-
-        // Animar números
-        function animateValue(id, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                document.getElementById(id).textContent = value;
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Live Feed simulado
-        function updateLiveFeed() {
-            const feed = document.getElementById('liveFeed');
-            const messages = [
-                'Deploy pipeline: Feature branch merged to production',
-                'Database backup: Completed successfully (2.3GB)',
-                'Security audit: No vulnerabilities detected',
-                'Load balancing: Traffic distributed across 8 regions',
-                'Cache invalidation: CDN updated in 45ms',
-                'API health check: All endpoints responding 200ms avg',
-                'Slack notification: Team alerted to new metrics',
-                'Blockchain sync: Latest block confirmed',
-                'ML model inference: 500 predictions/sec active',
-                'Customer satisfaction: 4.9/5 stars (1,245 reviews)'
-            ];
-
-            setInterval(() => {
-                const now = new Date();
-                const time = now.getHours().toString().padStart(2, '0') + ':' + 
-                           now.getMinutes().toString().padStart(2, '0') + ':' + 
-                           now.getSeconds().toString().padStart(2, '0');
-
-                const message = messages[Math.floor(Math.random() * messages.length)];
-                const item = document.createElement('div');
-                item.className = 'feed-item';
-                item.innerHTML = `<span class="feed-time">[${time}]</span> ✓ ${message}`;
-
-                feed.insertBefore(item, feed.firstChild);
-                if (feed.children.length > 10) {
-                    feed.removeChild(feed.lastChild);
-                }
-            }, 4000);
-        }
+        updateTime();
+        setInterval(updateTime, 1000);
 
         // Charts
-        function createCharts() {
-            // Revenue Chart
-            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-            new Chart(revenueCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{
-                        label: 'Brazil',
-                        data: [15, 18, 22, 25, 28, 32, 35, 38, 40, 42, 45, 50],
-                        borderColor: '#00ff88',
-                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                        tension: 0.4,
-                        borderWidth: 3,
-                        fill: true
-                    }, {
-                        label: 'USA',
-                        data: [12, 16, 18, 22, 26, 28, 30, 32, 35, 38, 40, 45],
-                        borderColor: '#00d9ff',
-                        backgroundColor: 'rgba(0, 217, 255, 0.1)',
-                        tension: 0.4,
-                        borderWidth: 3,
-                        fill: true
-                    }]
+        Chart.defaults.color = '#9ca3af';
+        Chart.defaults.borderColor = '#374151';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                datasets: [{
+                    label: 'Brasil',
+                    data: [15, 18, 22, 25, 28, 32, 35, 38, 40, 42, 45, 50],
+                    borderColor: '#0066ff',
+                    backgroundColor: 'rgba(0, 102, 255, 0.05)',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#0066ff'
+                }, {
+                    label: 'USA',
+                    data: [12, 16, 18, 22, 26, 28, 30, 32, 35, 38, 40, 45],
+                    borderColor: '#00d9ff',
+                    backgroundColor: 'rgba(0, 217, 255, 0.05)',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#00d9ff'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: { labels: { color: '#00ff88' } }
-                    },
-                    scales: {
-                        y: { ticks: { color: '#00ff88' }, grid: { color: 'rgba(0, 255, 136, 0.1)' } },
-                        x: { ticks: { color: '#00d9ff' }, grid: { color: 'rgba(0, 217, 255, 0.1)' } }
-                    }
+                scales: {
+                    y: { beginAtZero: true, grid: { display: true } }
                 }
-            });
+            }
+        });
 
-            // Projects Chart
-            const projectsCtx = document.getElementById('projectsChart').getContext('2d');
-            new Chart(projectsCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Finance', 'E-commerce', 'IoT', 'AI/ML', 'Other'],
-                    datasets: [{
-                        data: [18, 16, 12, 5, 3],
-                        backgroundColor: ['#00ff88', '#00d9ff', '#ff00ff', '#ffd700', '#ff6b6b'],
-                        borderColor: '#0a0e27',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { labels: { color: '#00ff88' } }
-                    }
+        // Projects Distribution Chart
+        const projectsCtx = document.getElementById('projectsChart').getContext('2d');
+        new Chart(projectsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Finance', 'E-commerce', 'IoT/IA', 'Blockchain', 'Outros'],
+                datasets: [{
+                    data: [18, 16, 12, 5, 3],
+                    backgroundColor: ['#0066ff', '#00d9ff', '#f59e0b', '#10b981', '#ef4444'],
+                    borderColor: '#1a1f2e',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
                 }
-            });
+            }
+        });
 
-            // Uptime Chart
-            const uptimeCtx = document.getElementById('uptimeChart').getContext('2d');
-            new Chart(uptimeCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    datasets: [{
-                        label: 'Uptime %',
-                        data: [99.95, 99.97, 99.98, 99.98],
-                        backgroundColor: '#00ff88',
-                        borderColor: '#00ff88',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    indexAxis: 'y',
-                    scales: {
-                        x: { 
-                            ticks: { color: '#00ff88' }, 
-                            grid: { color: 'rgba(0, 255, 136, 0.1)' },
-                            max: 100
-                        },
-                        y: { ticks: { color: '#00d9ff' } }
-                    }
+        // Uptime Chart
+        const uptimeCtx = document.getElementById('uptimeChart').getContext('2d');
+        new Chart(uptimeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Brasil', 'USA', 'Europa', 'Ásia'],
+                datasets: [{
+                    label: 'Uptime %',
+                    data: [99.98, 99.97, 99.95, 99.96],
+                    backgroundColor: '#0066ff',
+                    borderColor: '#0066ff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
                 }
-            });
+            }
+        });
 
-            // Utilization Chart
-            const utilizationCtx = document.getElementById('utilizationChart').getContext('2d');
-            new Chart(utilizationCtx, {
-                type: 'radar',
-                data: {
-                    labels: ['Frontend', 'Backend', 'DevOps', 'QA', 'Design', 'PM'],
-                    datasets: [{
-                        label: 'Team Utilization',
-                        data: [85, 92, 78, 88, 75, 95],
-                        borderColor: '#00ff88',
-                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            ticks: { color: '#00ff88' },
-                            grid: { color: 'rgba(0, 255, 136, 0.1)' }
-                        }
-                    },
-                    plugins: {
-                        legend: { labels: { color: '#00ff88' } }
-                    }
+        // Growth Chart
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                datasets: [{
+                    label: 'Crescimento %',
+                    data: [12, 15, 18, 22],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#10b981'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
                 }
-            });
-        }
-
-        // Init
-        window.addEventListener('load', () => {
-            createParticles();
-            animateValue('investValue', 0, 650000, 2000);
-            animateValue('projectsValue', 0, 54, 2000);
-            animateValue('countriesValue', 0, 12, 2000);
-            updateLiveFeed();
-            createCharts();
-
-            // Update last update time
-            setInterval(() => {
-                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
-            }, 1000);
+            }
         });
     </script>
 </body>
