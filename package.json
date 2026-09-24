@@ -1,0 +1,18 @@
+{
+  "name": "cascade-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard moderno para CascadeProjects - 54 projetos, 10.5M LOC",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8888",
+    "deploy": "netlify deploy --prod --dir=."
+  },
+  "keywords": [
+    "dashboard",
+    "projects",
+    "portfolio",
+    "software-house"
+  ],
+  "author": "CascadeProjects",
+  "license": "MIT"
+}
