@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CascadeProjects - Dashboard Operacional Interno">
-    <title>CascadeProjects - Dashboard Operacional</title>
+    <meta name="description" content="CascadeProjects - Dashboard Executivo em Tempo Real">
+    <title>CascadeProjects - Dashboard Executivo</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -107,6 +107,33 @@
             50% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3); }
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes numberCounter {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
         /* CONTAINER */
         .container {
             max-width: 1800px;
@@ -128,6 +155,7 @@
             margin-bottom: 2rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid var(--border);
+            animation: fadeInUp 0.6s ease;
         }
 
         .page-title {
@@ -181,6 +209,19 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .kpi-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .kpi-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .kpi-card:nth-child(4) {
+            animation-delay: 0.3s;
         }
 
         .kpi-card::before {
@@ -198,6 +239,7 @@
         .kpi-card:hover {
             border-color: var(--primary);
             background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, rgba(36, 45, 61, 0.7) 100%);
+            transform: translateY(-5px);
         }
 
         .kpi-card:hover::before {
@@ -218,11 +260,18 @@
             color: var(--text-primary);
             margin-bottom: 0.5rem;
             font-family: 'Roboto Mono', monospace;
+            height: 2.8rem;
+            overflow: hidden;
+        }
+
+        .kpi-value span {
+            display: inline-block;
         }
 
         .kpi-change {
             font-size: 0.85rem;
             color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .kpi-change.positive {
@@ -236,6 +285,7 @@
         /* SECTION */
         .section {
             margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease;
         }
 
         .section-header {
@@ -264,7 +314,88 @@
             color: var(--primary-light);
         }
 
-        /* OPERATIONS GRID */
+        /* BUSINESS LINES */
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .business-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: slideRight 0.6s ease;
+        }
+
+        .business-card:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        .business-card:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        .business-card:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        .business-card:nth-child(5) {
+            animation-delay: 0.2s;
+        }
+
+        .business-card:nth-child(6) {
+            animation-delay: 0.25s;
+        }
+
+        .business-card:nth-child(7) {
+            animation-delay: 0.3s;
+        }
+
+        .business-card:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, var(--bg-card) 100%);
+            transform: translateY(-8px);
+        }
+
+        .business-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .business-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .business-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .business-metrics {
+            display: flex;
+            gap: 0.8rem;
+            font-size: 0.75rem;
+        }
+
+        .business-metric {
+            background: rgba(0, 102, 255, 0.08);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            border-left: 2px solid var(--primary);
+            color: var(--text-secondary);
+        }
+
+        /* OPERATIONS MAP */
         .operations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -277,11 +408,25 @@
             border-radius: 8px;
             padding: 1.5rem;
             transition: all 0.2s ease;
+            animation: slideRight 0.6s ease;
+        }
+
+        .operation-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .operation-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .operation-card:nth-child(4) {
+            animation-delay: 0.3s;
         }
 
         .operation-card:hover {
             border-color: var(--primary);
             background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, var(--bg-card) 100%);
+            transform: translateY(-5px);
         }
 
         .country-header {
@@ -312,12 +457,7 @@
             font-weight: 600;
             text-transform: uppercase;
             margin-top: 0.3rem;
-        }
-
-        .country-status.offline {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: var(--danger);
-            color: var(--danger);
+            animation: fadeInUp 0.6s ease;
         }
 
         .stats-row {
@@ -377,6 +517,60 @@
             font-weight: 500;
         }
 
+        /* TECH GRID */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .tech-card:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        .tech-card:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        .tech-card:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+
+        .tech-card:nth-child(5) {
+            animation-delay: 0.2s;
+        }
+
+        .tech-card:nth-child(6) {
+            animation-delay: 0.25s;
+        }
+
+        .tech-card:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, var(--bg-card) 100%);
+            transform: translateY(-4px);
+        }
+
+        .tech-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .tech-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
         /* CHARTS GRID */
         .charts-grid {
             display: grid;
@@ -390,6 +584,19 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1.5rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .chart-container:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .chart-container:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .chart-container:nth-child(4) {
+            animation-delay: 0.3s;
         }
 
         .chart-title {
@@ -401,114 +608,6 @@
 
         canvas {
             max-height: 300px;
-        }
-
-        /* WORLD MAP */
-        .world-map-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .world-map-title {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .world-map-content {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .world-map-regions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            width: 100%;
-            margin-top: 1.5rem;
-        }
-
-        .region-dot {
-            padding: 1rem;
-            background: rgba(0, 102, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .region-dot.active {
-            background: rgba(0, 102, 255, 0.15);
-            border-color: var(--primary);
-            color: var(--secondary);
-        }
-
-        /* PORTFOLIO TABLE */
-        .table-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        th {
-            background: rgba(0, 102, 255, 0.05);
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-primary);
-        }
-
-        tr:hover {
-            background: rgba(0, 102, 255, 0.03);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .status-badge.live {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-
-        .status-badge.dev {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--primary);
-            border: 1px solid var(--primary);
         }
 
         /* FOOTER */
@@ -592,8 +691,8 @@
             <!-- PAGE HEADER -->
             <div class="page-header">
                 <div>
-                    <h1 class="page-title">Dashboard de Operações</h1>
-                    <p class="page-subtitle">Monitoramento Global • 12 Países • 54 Projetos em Produção</p>
+                    <h1 class="page-title">Dashboard Executivo</h1>
+                    <p class="page-subtitle">Ecossistema em Tempo Real • 7 Linhas de Negócio • 4 Operações Globais</p>
                 </div>
                 <div class="header-actions">
                     <button class="btn">Exportar Relatório</button>
@@ -605,53 +704,113 @@
             <div class="kpi-grid">
                 <div class="kpi-card">
                     <div class="kpi-label">💰 Investimento Total</div>
-                    <div class="kpi-value">$650K</div>
+                    <div class="kpi-value" id="investValue">$0</div>
                     <div class="kpi-change positive">↑ 12% vs Q3</div>
                 </div>
 
                 <div class="kpi-card">
-                    <div class="kpi-label">📊 Projetos em Produção</div>
-                    <div class="kpi-value">54</div>
-                    <div class="kpi-change positive">↑ 8 novos este mês</div>
+                    <div class="kpi-label">📊 Receita Mensal</div>
+                    <div class="kpi-value" id="revenueValue">$0</div>
+                    <div class="kpi-change positive">↑ 8% vs mês anterior</div>
                 </div>
 
                 <div class="kpi-card">
-                    <div class="kpi-label">🌍 Países Operacionais</div>
-                    <div class="kpi-value">12</div>
-                    <div class="kpi-change positive">↑ 3 em expansão</div>
+                    <div class="kpi-label">🚀 Projetos Ativos</div>
+                    <div class="kpi-value" id="projectsValue">0</div>
+                    <div class="kpi-change positive">↑ 5 novos este mês</div>
                 </div>
 
                 <div class="kpi-card">
                     <div class="kpi-label">⚡ Taxa de Uptime</div>
-                    <div class="kpi-value">99.98%</div>
+                    <div class="kpi-value" id="uptimeValue">99.0%</div>
                     <div class="kpi-change positive">✓ Operacional</div>
                 </div>
             </div>
 
-            <!-- MAPA MUNDIAL -->
+            <!-- 7 LINHAS DE NEGÓCIO -->
             <div class="section">
                 <div class="section-header">
-                    <h2 class="section-title">Cobertura Global</h2>
+                    <h2 class="section-title">7 Linhas de Negócio Estratégicas</h2>
+                    <span class="section-action">Ver Relatório Completo →</span>
                 </div>
-                <div class="world-map-container">
-                    <div class="world-map-title">Presença em Múltiplos Continentes</div>
-                    <div class="world-map-content">🌍 🌎 🌏</div>
-                    <div class="world-map-regions">
-                        <div class="region-dot active">🇧🇷 Brasil (HQ)</div>
-                        <div class="region-dot active">🇺🇸 USA</div>
-                        <div class="region-dot active">🇬🇧 Europa</div>
-                        <div class="region-dot active">🇯🇵 Ásia</div>
-                        <div class="region-dot">🇦🇺 Oceania</div>
-                        <div class="region-dot">🌐 Outras Regiões</div>
+                <div class="business-grid">
+                    <div class="business-card">
+                        <div class="business-icon">📦</div>
+                        <div class="business-name">ZatendeStok</div>
+                        <div class="business-desc">PDV, estoque FIFO, fidelidade, fiado e campanhas em uma rotina mais inteligente.</div>
+                        <div class="business-metrics">
+                            <span class="business-metric">👥 1200+ clientes</span>
+                            <span class="business-metric">💹 +28% MoM</span>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <div class="business-icon">💬</div>
+                        <div class="business-name">ProntoChamei</div>
+                        <div class="business-desc">O caminho mais curto entre uma pessoa, uma pergunta e uma resposta que ajuda.</div>
+                        <div class="business-metrics">
+                            <span class="business-metric">📞 5.2M interações</span>
+                            <span class="business-metric">📈 +35% YoY</span>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <div class="business-icon">🔧</div>
+                        <div class="business-name">CSE6</div>
+                        <div class="business-desc">Tecnologia aplicada a operações, serviços e novos produtos digitais.</div>
+                        <div class="business-metrics">
+                            <span class="business-metric">🏢 18 clientes</span>
+                            <span class="business-metric">🚀 +42% trim</span>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <div class="business-icon">🎯</div>
+                        <div class="business-name">Zatende CRM</div>
+                        <div class="business-desc">Leads, conversas, campanhas e reuniões reunidos para sua equipe avançar.</div>
+                        <div class="business-metrics">
+                            <span class="business-metric">✉️ 12M emails</span>
+                            <span class="business-metric">↑ +22% QoQ</span>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <div class="business-icon">🍽️</div>
+                        <div class="business-name">Pedidos JM</div>
+                        <div class="business-desc">Autoatendimento e pedidos por mesa para operações gastronômicas.</div>
+                        <div class="business-metrics">
+                            <span class="business-metric">🍽️ 450+ restaurantes</span>
+                            <span class="business-metric">+51% YoY</span>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <div class="business-icon">🏢</div>
+                        <div class="business-name">CapitalTok</div>
+                        <div class="business-desc">Imóveis exclusivos nos Emirados, gestão patrimonial e tokenização regulada.</div>
+                        <div class="business-metrics">
+                            <span class="business-metric">🏗️ $45M AUM</span>
+                            <span class="business-metric">+85% WoW</span>
+                        </div>
+                    </div>
+
+                    <div class="business-card">
+                        <div class="business-icon">🚗</div>
+                        <div class="business-name">Fabri</div>
+                        <div class="business-desc">Locação, fretamento e turismo com conforto, segurança e pontualidade.</div>
+                        <div class="business-metrics">
+                            <span class="business-metric">🚙 280 frotas</span>
+                            <span class="business-metric">+19% MoM</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- OPERAÇÕES POR PAÍS -->
+            <!-- OPERAÇÕES GLOBAIS -->
             <div class="section">
                 <div class="section-header">
-                    <h2 class="section-title">Operações por Região</h2>
-                    <span class="section-action">Ver Detalhes Completos →</span>
+                    <h2 class="section-title">Operações Globais - 4 Hubs</h2>
+                    <span class="section-action">Mapa de Operações →</span>
                 </div>
                 <div class="operations-grid">
                     <!-- BRASIL -->
@@ -659,24 +818,24 @@
                         <div class="country-header">
                             <div>
                                 <div class="country-name">🇧🇷 Brasil</div>
-                                <div class="country-status">Ativo - HQ</div>
+                                <div class="country-status">HQ • Principal Mercado</div>
                             </div>
                             <div class="country-flag">🟢</div>
                         </div>
                         <div class="stats-row">
                             <div class="stat-item">
-                                <div class="stat-label">Projetos</div>
-                                <div class="stat-value">18</div>
+                                <div class="stat-label">Faturamento</div>
+                                <div class="stat-value" id="br-revenue">$0</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-label">Receita</div>
-                                <div class="stat-value">$280K</div>
+                                <div class="stat-label">Clientes</div>
+                                <div class="stat-value" id="br-clients">0</div>
                             </div>
                         </div>
                         <div class="platforms-list">
-                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platforms-label">Stack em Produção</div>
                             <div class="platform-tags">
-                                <span class="platform-tag">React</span>
+                                <span class="platform-tag">React/Next.js</span>
                                 <span class="platform-tag">Node.js</span>
                                 <span class="platform-tag">PostgreSQL</span>
                                 <span class="platform-tag">AWS</span>
@@ -684,92 +843,133 @@
                         </div>
                     </div>
 
-                    <!-- USA -->
+                    <!-- PARAGUAI -->
                     <div class="operation-card">
                         <div class="country-header">
                             <div>
-                                <div class="country-name">🇺🇸 Estados Unidos</div>
-                                <div class="country-status">Ativo</div>
+                                <div class="country-name">🇵🇾 Paraguai</div>
+                                <div class="country-status">Expansão Regional</div>
                             </div>
-                            <div class="country-flag">🟢</div>
+                            <div class="country-flag">🟡</div>
                         </div>
                         <div class="stats-row">
                             <div class="stat-item">
-                                <div class="stat-label">Projetos</div>
-                                <div class="stat-value">16</div>
+                                <div class="stat-label">Faturamento</div>
+                                <div class="stat-value" id="py-revenue">$0</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-label">Receita</div>
-                                <div class="stat-value">$240K</div>
+                                <div class="stat-label">Clientes</div>
+                                <div class="stat-value" id="py-clients">0</div>
                             </div>
                         </div>
                         <div class="platforms-list">
-                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platforms-label">Stack em Produção</div>
                             <div class="platform-tags">
-                                <span class="platform-tag">Vue.js</span>
+                                <span class="platform-tag">Flutter</span>
                                 <span class="platform-tag">Python</span>
+                                <span class="platform-tag">MongoDB</span>
                                 <span class="platform-tag">Google Cloud</span>
-                                <span class="platform-tag">Kubernetes</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- EUROPA -->
+                    <!-- PORTUGAL -->
                     <div class="operation-card">
                         <div class="country-header">
                             <div>
-                                <div class="country-name">🇬🇧 Europa</div>
-                                <div class="country-status">Ativo</div>
+                                <div class="country-name">🇵🇹 Portugal</div>
+                                <div class="country-status">Porta Europa</div>
                             </div>
                             <div class="country-flag">🟢</div>
                         </div>
                         <div class="stats-row">
                             <div class="stat-item">
-                                <div class="stat-label">Projetos</div>
-                                <div class="stat-value">12</div>
+                                <div class="stat-label">Faturamento</div>
+                                <div class="stat-value" id="pt-revenue">$0</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-label">Receita</div>
-                                <div class="stat-value">$130K</div>
+                                <div class="stat-label">Clientes</div>
+                                <div class="stat-value" id="pt-clients">0</div>
                             </div>
                         </div>
                         <div class="platforms-list">
-                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platforms-label">Stack em Produção</div>
                             <div class="platform-tags">
-                                <span class="platform-tag">Next.js</span>
+                                <span class="platform-tag">Vue.js</span>
                                 <span class="platform-tag">Go</span>
+                                <span class="platform-tag">PostgreSQL</span>
                                 <span class="platform-tag">Azure</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ÁSIA -->
+                    <!-- DUBAI -->
                     <div class="operation-card">
                         <div class="country-header">
                             <div>
-                                <div class="country-name">🇯🇵 Ásia</div>
-                                <div class="country-status">Ativo</div>
+                                <div class="country-name">🇦🇪 Dubai</div>
+                                <div class="country-status">Hub Global</div>
                             </div>
                             <div class="country-flag">🟢</div>
                         </div>
                         <div class="stats-row">
                             <div class="stat-item">
-                                <div class="stat-label">Projetos</div>
-                                <div class="stat-value">8</div>
+                                <div class="stat-label">Faturamento</div>
+                                <div class="stat-value" id="ae-revenue">$0</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-label">Receita</div>
-                                <div class="stat-value">$120K</div>
+                                <div class="stat-label">Clientes</div>
+                                <div class="stat-value" id="ae-clients">0</div>
                             </div>
                         </div>
                         <div class="platforms-list">
-                            <div class="platforms-label">Plataformas Ativas</div>
+                            <div class="platforms-label">Stack em Produção</div>
                             <div class="platform-tags">
-                                <span class="platform-tag">Flutter</span>
-                                <span class="platform-tag">Rust</span>
-                                <span class="platform-tag">Alibaba Cloud</span>
+                                <span class="platform-tag">Blockchain</span>
+                                <span class="platform-tag">Solidity</span>
+                                <span class="platform-tag">Web3</span>
+                                <span class="platform-tag">AWS</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TECNOLOGIAS DE PRÓXIMA GERAÇÃO -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Tecnologias de Próxima Geração em Desenvolvimento</h2>
+                    <span class="section-action">Roadmap Técnico →</span>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">⛓️</div>
+                        <div class="tech-name">Tokenização de Ativos</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-icon">🔐</div>
+                        <div class="tech-name">Blockchain</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-icon">🌐</div>
+                        <div class="tech-name">Ativos do Mundo Real</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-icon">⚙️</div>
+                        <div class="tech-name">Contratos Inteligentes</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-icon">🤖</div>
+                        <div class="tech-name">Agentes de IA</div>
+                    </div>
+
+                    <div class="tech-card">
+                        <div class="tech-icon">💳</div>
+                        <div class="tech-name">Pagamentos Digitais</div>
                     </div>
                 </div>
             </div>
@@ -786,98 +986,26 @@
                     </div>
 
                     <div class="chart-container">
-                        <div class="chart-title">Distribuição de Projetos</div>
-                        <canvas id="projectsChart"></canvas>
+                        <div class="chart-title">Distribuição de Clientes</div>
+                        <canvas id="clientsChart"></canvas>
                     </div>
 
                     <div class="chart-container">
-                        <div class="chart-title">Taxa de Uptime por Região</div>
-                        <canvas id="uptimeChart"></canvas>
-                    </div>
-
-                    <div class="chart-container">
-                        <div class="chart-title">Crescimento Mensal</div>
+                        <div class="chart-title">Crescimento Mensal por Linha</div>
                         <canvas id="growthChart"></canvas>
                     </div>
-                </div>
-            </div>
 
-            <!-- PORTFOLIO DE PROJETOS -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">Portfolio de Projetos</h2>
-                    <span class="section-action">Ver 54 Projetos →</span>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Projeto</th>
-                                <th>Categoria</th>
-                                <th>Status</th>
-                                <th>Região</th>
-                                <th>Stack</th>
-                                <th>Receita</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>emotion-monitor</strong></td>
-                                <td>IoT/IA</td>
-                                <td><span class="status-badge live">Live</span></td>
-                                <td>Brasil</td>
-                                <td>Node.js, TensorFlow, OpenCV</td>
-                                <td>$45K</td>
-                            </tr>
-                            <tr>
-                                <td><strong>citycost</strong></td>
-                                <td>E-commerce</td>
-                                <td><span class="status-badge live">Live</span></td>
-                                <td>USA</td>
-                                <td>React, PostgreSQL, Elasticsearch</td>
-                                <td>$52K</td>
-                            </tr>
-                            <tr>
-                                <td><strong>planinvest-pusd</strong></td>
-                                <td>Finance</td>
-                                <td><span class="status-badge live">Live</span></td>
-                                <td>Brasil</td>
-                                <td>Blockchain, Solidity, Web3</td>
-                                <td>$38K</td>
-                            </tr>
-                            <tr>
-                                <td><strong>planinvest-matechpower</strong></td>
-                                <td>Finance</td>
-                                <td><span class="status-badge live">Live</span></td>
-                                <td>Europa</td>
-                                <td>Python, NumPy, Financial APIs</td>
-                                <td>$35K</td>
-                            </tr>
-                            <tr>
-                                <td><strong>simulador-banca</strong></td>
-                                <td>Finance/Edu</td>
-                                <td><span class="status-badge live">Live</span></td>
-                                <td>Ásia</td>
-                                <td>Next.js, Node.js, MongoDB</td>
-                                <td>$28K</td>
-                            </tr>
-                            <tr>
-                                <td><strong>hyperterm</strong></td>
-                                <td>AI Tools</td>
-                                <td><span class="status-badge dev">Dev</span></td>
-                                <td>Brasil</td>
-                                <td>React, Claude API, xterm.js</td>
-                                <td>$22K</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="chart-container">
+                        <div class="chart-title">Performance Global</div>
+                        <canvas id="performanceChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- FOOTER -->
         <footer class="footer">
-            <p>© 2024 CascadeProjects - Dashboard Interno | Última atualização: <span id="last-update">--:--:--</span></p>
+            <p>© 2024 CascadeProjects - Dashboard Executivo | Última atualização: <span id="last-update">--:--:--</span></p>
         </footer>
     </div>
 
@@ -890,6 +1018,66 @@
         }
         updateTime();
         setInterval(updateTime, 1000);
+
+        // Animar números
+        function animateCounter(id, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const interval = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    start = target;
+                    clearInterval(interval);
+                }
+                const element = document.getElementById(id);
+                if (element) {
+                    if (target > 1000) {
+                        element.textContent = '$' + start.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + 'K';
+                    } else {
+                        element.textContent = Math.floor(start).toString();
+                    }
+                }
+            }, 16);
+        }
+
+        // Iniciar animações de números
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                animateCounter('investValue', 650, 2000);
+                animateCounter('revenueValue', 120, 2000);
+                animateCounter('projectsValue', 54, 2000);
+                
+                animateCounter('br-revenue', 280, 2500);
+                animateCounter('br-clients', 1200, 2500);
+                
+                animateCounter('py-revenue', 45, 2500);
+                animateCounter('py-clients', 280, 2500);
+                
+                animateCounter('pt-revenue', 65, 2500);
+                animateCounter('pt-clients', 520, 2500);
+                
+                animateCounter('ae-revenue', 120, 2500);
+                animateCounter('ae-clients', 85, 2500);
+
+                // Atualizar a cada 5 segundos com números aleatórios flutuando
+                setInterval(() => {
+                    const investEl = document.getElementById('investValue');
+                    const currentInvest = parseFloat(investEl.textContent);
+                    const newInvest = (currentInvest * (0.98 + Math.random() * 0.04)).toFixed(0);
+                    investEl.textContent = '$' + newInvest + 'K';
+
+                    const revenueEl = document.getElementById('revenueValue');
+                    const currentRev = parseFloat(revenueEl.textContent);
+                    const newRev = (currentRev * (0.97 + Math.random() * 0.06)).toFixed(0);
+                    revenueEl.textContent = '$' + newRev + 'K';
+
+                    const uptimeEl = document.getElementById('uptimeValue');
+                    const currentUptime = parseFloat(uptimeEl.textContent);
+                    const newUptime = (currentUptime + (Math.random() - 0.5) * 0.02).toFixed(2);
+                    uptimeEl.textContent = Math.min(99.99, Math.max(98, newUptime)) + '%';
+                }, 5000);
+            }, 500);
+        });
 
         // Charts
         Chart.defaults.color = '#9ca3af';
@@ -904,7 +1092,7 @@
                 labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
                 datasets: [{
                     label: 'Brasil',
-                    data: [15, 18, 22, 25, 28, 32, 35, 38, 40, 42, 45, 50],
+                    data: [18, 22, 26, 32, 38, 45, 52, 58, 65, 72, 78, 85],
                     borderColor: '#0066ff',
                     backgroundColor: 'rgba(0, 102, 255, 0.05)',
                     tension: 0.4,
@@ -913,8 +1101,8 @@
                     pointRadius: 4,
                     pointBackgroundColor: '#0066ff'
                 }, {
-                    label: 'USA',
-                    data: [12, 16, 18, 22, 26, 28, 30, 32, 35, 38, 40, 45],
+                    label: 'Global',
+                    data: [25, 30, 38, 48, 60, 75, 88, 102, 115, 128, 138, 150],
                     borderColor: '#00d9ff',
                     backgroundColor: 'rgba(0, 217, 255, 0.05)',
                     tension: 0.4,
@@ -926,45 +1114,39 @@
             },
             options: {
                 responsive: true,
-                plugins: {
-                    legend: { display: true }
-                },
-                scales: {
-                    y: { beginAtZero: true, grid: { display: true } }
-                }
+                plugins: { legend: { display: true } },
+                scales: { y: { beginAtZero: true } }
             }
         });
 
-        // Projects Distribution Chart
-        const projectsCtx = document.getElementById('projectsChart').getContext('2d');
-        new Chart(projectsCtx, {
+        // Clients Distribution
+        const clientsCtx = document.getElementById('clientsChart').getContext('2d');
+        new Chart(clientsCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Finance', 'E-commerce', 'IoT/IA', 'Blockchain', 'Outros'],
+                labels: ['ZatendeStok', 'ProntoChamei', 'CSE6', 'CRM', 'Pedidos JM', 'CapitalTok', 'Fabri'],
                 datasets: [{
-                    data: [18, 16, 12, 5, 3],
-                    backgroundColor: ['#0066ff', '#00d9ff', '#f59e0b', '#10b981', '#ef4444'],
+                    data: [1200, 850, 520, 650, 450, 85, 280],
+                    backgroundColor: ['#0066ff', '#00d9ff', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6', '#ec4899'],
                     borderColor: '#1a1f2e',
                     borderWidth: 2
                 }]
             },
             options: {
                 responsive: true,
-                plugins: {
-                    legend: { display: true }
-                }
+                plugins: { legend: { display: true } }
             }
         });
 
-        // Uptime Chart
-        const uptimeCtx = document.getElementById('uptimeChart').getContext('2d');
-        new Chart(uptimeCtx, {
+        // Growth Chart
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
             type: 'bar',
             data: {
-                labels: ['Brasil', 'USA', 'Europa', 'Ásia'],
+                labels: ['ZatendeStok', 'ProntoChamei', 'CSE6', 'CRM', 'Pedidos JM', 'CapitalTok', 'Fabri'],
                 datasets: [{
-                    label: 'Uptime %',
-                    data: [99.98, 99.97, 99.95, 99.96],
+                    label: 'Crescimento %',
+                    data: [28, 35, 42, 22, 51, 85, 19],
                     backgroundColor: '#0066ff',
                     borderColor: '#0066ff',
                     borderWidth: 1
@@ -972,34 +1154,28 @@
             },
             options: {
                 responsive: true,
-                scales: {
-                    y: { beginAtZero: true, max: 100 }
-                }
+                scales: { y: { beginAtZero: true } }
             }
         });
 
-        // Growth Chart
-        const growthCtx = document.getElementById('growthChart').getContext('2d');
-        new Chart(growthCtx, {
-            type: 'line',
+        // Performance Global
+        const perfCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(perfCtx, {
+            type: 'radar',
             data: {
-                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                labels: ['Brasil', 'Paraguai', 'Portugal', 'Dubai', 'Uptime', 'Escalabilidade'],
                 datasets: [{
-                    label: 'Crescimento %',
-                    data: [12, 15, 18, 22],
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.05)',
-                    tension: 0.4,
-                    borderWidth: 2,
-                    fill: true,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#10b981'
+                    label: 'Performance Score',
+                    data: [95, 78, 82, 88, 99.98, 92],
+                    borderColor: '#0066ff',
+                    backgroundColor: 'rgba(0, 102, 255, 0.1)',
+                    borderWidth: 2
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                    y: { beginAtZero: true }
+                    r: { beginAtZero: true, max: 100 }
                 }
             }
         });
